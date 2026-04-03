@@ -1,4 +1,5 @@
-import { Mail, ExternalLink } from "lucide-react";
+import { Mail } from "lucide-react";
+import { BullMark } from "@/components/ui/BullMark";
 
 const footerLinks = [
   { label: "Services", href: "#services" },
@@ -16,7 +17,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <p className="text-[#FAFAFA] font-semibold text-base mb-3">Nalla Labs</p>
+            <div className="flex items-center gap-2.5 mb-3">
+              <BullMark variant="dark" size={32} />
+              <p className="text-[#FAFAFA] font-semibold text-base">Nalla Labs</p>
+            </div>
             <p className="text-[#71717A] text-sm leading-relaxed max-w-xs">
               Advisory and engineering for companies building on blockchain and financial infrastructure.
             </p>
@@ -44,20 +48,17 @@ export function Footer() {
             <p className="label-mono text-[#52525B] mb-4">Contact</p>
             <div className="space-y-3">
               <a
-                href="mailto:hello@nallalabs.com"
+                href="mailto:hello@nallalabs.xyz"
                 className="flex items-center gap-2 text-sm text-[#71717A] hover:text-[#FAFAFA] transition-colors"
               >
                 <Mail size={14} />
-                hello@nallalabs.com
+                hello@nallalabs.xyz
               </a>
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#about"
                 className="flex items-center gap-2 text-sm text-[#71717A] hover:text-[#FAFAFA] transition-colors"
               >
-                <ExternalLink size={14} />
-                LinkedIn
+                Leadership
               </a>
             </div>
           </div>

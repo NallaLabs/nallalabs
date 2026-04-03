@@ -1,4 +1,17 @@
-import { FadeUp, StaggerContainer, StaggerItem } from "@/components/motion/FadeUp";
+import { FadeUp } from "@/components/motion/FadeUp";
+
+const executives = [
+  {
+    name: "Allan Robinson",
+    role: "Executive",
+    href: "https://www.linkedin.com/in/allan-robinson-3b54511a4/",
+  },
+  {
+    name: "Fred Gitonga",
+    role: "Executive",
+    href: "https://www.linkedin.com/in/fredgitonga",
+  },
+];
 
 export function About() {
   return (
@@ -9,7 +22,7 @@ export function About() {
           <FadeUp>
             <p className="label-mono mb-6">About</p>
             <h2 className="text-h2 text-[#0A0A0A] mb-6">
-              Built by engineers who've been in the infrastructure.
+              Built by engineers who&apos;ve been in the infrastructure.
             </h2>
             <p className="text-[#52525B] leading-relaxed mb-6">
               Nalla Labs was built around a belief that blockchain infrastructure should be designed
@@ -22,10 +35,29 @@ export function About() {
               and enterprises.
             </p>
 
+            <div className="mt-10">
+              <p className="label-mono mb-4">Leadership</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {executives.map((person) => (
+                  <a
+                    key={person.name}
+                    href={person.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-[#E4E4E7] bg-white p-4 hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors duration-150"
+                  >
+                    <p className="text-sm font-semibold text-[#0A0A0A]">{person.name}</p>
+                    <p className="text-xs text-[#52525B] mt-1">{person.role}</p>
+                    <p className="text-xs text-[#1D4ED8] mt-3">LinkedIn profile</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+
             {/* Pull quote */}
             <blockquote className="mt-10 border-l-2 border-[#1D4ED8] pl-6">
               <p className="text-xl font-semibold text-[#0A0A0A] tracking-tight">
-                "Fewer clients. Deeper work."
+                &ldquo;Fewer clients. Deeper work.&rdquo;
               </p>
             </blockquote>
           </FadeUp>

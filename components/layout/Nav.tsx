@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Menu } from "lucide-react";
+import { BullMark } from "@/components/ui/BullMark";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -44,9 +45,13 @@ export function Nav() {
           {/* Logo */}
           <a
             href="#"
-            className="text-[#0A0A0A] font-semibold text-base tracking-tight hover:opacity-70 transition-opacity"
+            className="flex items-center gap-2.5 hover:opacity-75 transition-opacity"
+            aria-label="Nalla Labs home"
           >
-            Nalla Labs
+            <BullMark variant="light" size={30} />
+            <span className="text-[#0A0A0A] font-semibold text-sm tracking-tight leading-none">
+              Nalla Labs
+            </span>
           </a>
 
           {/* Desktop links */}
@@ -97,6 +102,9 @@ export function Nav() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 bg-[#0A0A0A] flex flex-col items-center justify-center"
           >
+            <div className="absolute top-5 left-6">
+              <BullMark variant="dark" size={30} />
+            </div>
             <button
               className="absolute top-5 right-6 text-[#FAFAFA]"
               onClick={() => setMobileOpen(false)}

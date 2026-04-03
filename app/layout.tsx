@@ -4,6 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nallalabs.xyz"),
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   title: "Nalla Labs — Blockchain & Financial Infrastructure",
   description:
     "Senior advisory and engineering for companies building on blockchain and financial infrastructure. We design, build, and scale secure systems.",
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
     description:
       "We design and build blockchain systems that scale.",
     type: "website",
+    url: "https://nallalabs.xyz",
   },
 };
 
