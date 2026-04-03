@@ -3,9 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-const geistSans = GeistSans;
-const geistMono = GeistMono;
-
 export const metadata: Metadata = {
   title: "Nalla Labs — Blockchain & Financial Infrastructure",
   description:
