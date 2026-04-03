@@ -9,7 +9,7 @@ const stats = [
 export function TrustStrip() {
   return (
     <section className="bg-[#F4F4F5] border-y border-[#E4E4E7]">
-      <div className="max-w-6xl mx-auto px-6 py-14">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10 py-14">
         <FadeUp>
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E4E4E7]">
             {stats.map((stat) => (

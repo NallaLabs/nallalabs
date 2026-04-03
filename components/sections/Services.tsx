@@ -27,8 +27,8 @@ const services = [
 export function Services() {
   return (
     <section id="services" className="py-28">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28">
           {/* Left column */}
           <FadeUp>
             <div className="lg:sticky lg:top-32 self-start">

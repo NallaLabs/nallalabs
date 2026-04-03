@@ -16,12 +16,12 @@ const itemVariants = {
 export function Hero() {
   return (
     <section className="min-h-screen flex flex-col justify-center pt-16">
-      <div className="max-w-6xl mx-auto px-6 py-32">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10 py-32">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="max-w-3xl"
+          className="max-w-4xl"
         >
           {/* Label */}
           <motion.p variants={itemVariants} className="label-mono mb-8">
@@ -36,7 +36,7 @@ export function Hero() {
           {/* Subheadline */}
           <motion.p
             variants={itemVariants}
-            className="text-lg text-[#52525B] leading-relaxed max-w-xl mb-10"
+            className="text-lg text-[#52525B] leading-relaxed max-w-2xl mb-10"
           >
             Senior advisory and engineering for companies that need blockchain
             infrastructure done right the first time.

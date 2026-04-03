@@ -34,15 +34,15 @@ const caseStudies = [
 export function CaseStudies() {
   return (
     <section id="work" className="py-28">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
         <FadeUp className="mb-16">
           <p className="label-mono mb-4">Case studies</p>
-          <h2 className="text-h2 text-[#0A0A0A] max-w-md">
+          <h2 className="text-h2 text-[#0A0A0A] max-w-lg">
             Work that speaks for itself.
           </h2>
         </FadeUp>
 
-        <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {caseStudies.map((cs) => (
             <StaggerItem key={cs.title}>
               {cs.featured ? (

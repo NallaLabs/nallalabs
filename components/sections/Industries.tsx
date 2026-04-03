@@ -27,15 +27,15 @@ const industries = [
 export function Industries() {
   return (
     <section className="py-28 bg-[#F4F4F5] border-y border-[#E4E4E7]">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
         <FadeUp className="mb-16">
           <p className="label-mono mb-4">Industries</p>
-          <h2 className="text-h2 text-[#0A0A0A] max-w-md">
+          <h2 className="text-h2 text-[#0A0A0A] max-w-lg">
             We go deep in three verticals.
           </h2>
         </FadeUp>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {industries.map((industry) => (
             <StaggerItem key={industry.label}>
               <div className="border border-[#E4E4E7] bg-white p-8 h-full">

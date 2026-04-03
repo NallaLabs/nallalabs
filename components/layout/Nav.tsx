@@ -41,14 +41,14 @@ export function Nav() {
             : "bg-transparent"
         }`}
       >
-        <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <nav className="max-w-7xl mx-auto px-8 lg:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
             className="flex items-center gap-2.5 hover:opacity-75 transition-opacity"
             aria-label="Nalla Labs home"
           >
-            <BullMark variant="light" size={30} />
+            <BullMark variant="light" size={48} />
             <span className="text-[#0A0A0A] font-semibold text-sm tracking-tight leading-none">
               Nalla Labs
             </span>
@@ -103,7 +103,7 @@ export function Nav() {
             className="fixed inset-0 z-50 bg-[#0A0A0A] flex flex-col items-center justify-center"
           >
             <div className="absolute top-5 left-6">
-              <BullMark variant="dark" size={30} />
+              <BullMark variant="dark" size={48} />
             </div>
             <button
               className="absolute top-5 right-6 text-[#FAFAFA]"

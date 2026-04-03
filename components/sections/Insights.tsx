@@ -31,11 +31,11 @@ const articles = [
 export function Insights() {
   return (
     <section id="insights" className="py-28">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
         <FadeUp className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <p className="label-mono mb-4">Insights</p>
-            <h2 className="text-h2 text-[#0A0A0A] max-w-sm">
+            <h2 className="text-h2 text-[#0A0A0A] max-w-md">
               Thinking out loud.
             </h2>
           </div>
@@ -47,7 +47,7 @@ export function Insights() {
           </a>
         </FadeUp>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {articles.map((article) => (
             <StaggerItem key={article.title}>
               <a

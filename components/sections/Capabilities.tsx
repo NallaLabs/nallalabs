@@ -22,10 +22,10 @@ const capabilities = [
 export function Capabilities() {
   return (
     <section className="py-28">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
         <FadeUp className="mb-12">
           <p className="label-mono mb-4">Capabilities</p>
-          <h2 className="text-h2 text-[#0A0A0A] max-w-md">
+          <h2 className="text-h2 text-[#0A0A0A] max-w-lg">
             The full technical stack.
           </h2>
         </FadeUp>

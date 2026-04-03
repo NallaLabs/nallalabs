@@ -13,7 +13,7 @@ const footerLinks = [
 export function Footer() {
   return (
     <footer className="bg-[#0A0A0A] border-t border-[#27272A]">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
@@ -67,9 +67,6 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-[#27272A] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[#52525B]">
             © {new Date().getFullYear()} Nalla Labs. All rights reserved.
-          </p>
-          <p className="text-xs text-[#3F3F46]">
-            Built with Next.js · Deployed on Vercel
           </p>
         </div>
       </div>

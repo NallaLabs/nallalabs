@@ -16,8 +16,8 @@ const executives = [
 export function About() {
   return (
     <section id="about" className="py-28 bg-[#F4F4F5] border-y border-[#E4E4E7]">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28">
           {/* Left */}
           <FadeUp>
             <p className="label-mono mb-6">About</p>

@@ -35,10 +35,10 @@ const steps = [
 export function Process() {
   return (
     <section id="process" className="py-28 bg-[#F4F4F5] border-y border-[#E4E4E7]">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10">
         <FadeUp className="mb-16">
           <p className="label-mono mb-4">How we work</p>
-          <h2 className="text-h2 text-[#0A0A0A] max-w-md">
+          <h2 className="text-h2 text-[#0A0A0A] max-w-lg">
             A clear process, every engagement.
           </h2>
         </FadeUp>
