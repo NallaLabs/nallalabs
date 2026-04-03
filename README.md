@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nalla Labs
 
-## Getting Started
+Website for **Nalla Labs** — a blockchain and financial infrastructure advisory and engineering firm.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Next.js 16](https://nextjs.org) — App Router, TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) — utility-first styling
+- [Framer Motion](https://www.framer.com/motion) — scroll and interaction animations
+- [Geist](https://vercel.com/font) — Geist Sans + Geist Mono (local, no network)
+- [Shadcn/ui](https://ui.shadcn.com) — accessible UI primitives
+- [Lucide React](https://lucide.dev) — icons
+
+## Structure
+
+```
+app/
+  layout.tsx          # Root layout, Geist fonts, metadata
+  page.tsx            # Homepage — composes all sections
+  globals.css         # Design tokens, Tailwind theme, typography utilities
+
+components/
+  layout/
+    Nav.tsx           # Fixed nav with scroll-triggered background
+    Footer.tsx
+  sections/
+    Hero.tsx
+    TrustStrip.tsx
+    Services.tsx
+    Process.tsx
+    CaseStudies.tsx
+    About.tsx
+    Insights.tsx
+    Industries.tsx
+    Capabilities.tsx
+    FinalCTA.tsx
+    Contact.tsx
+  motion/
+    FadeUp.tsx        # Scroll-triggered fade-up wrapper + stagger container
+    CountUp.tsx       # Number counter animation
+  ui/                 # Shadcn components
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to [Vercel](https://vercel.com) — zero configuration required with Next.js.
