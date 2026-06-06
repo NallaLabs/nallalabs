@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nalla Labs — Bull Mark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --white:   #FAFAFA;
+      --surface: #F4F4F5;
+      --border:  #E4E4E7;
+      --muted:   #A1A1AA;
+      --blue:    #1D4ED8;
+    }
+
+    body {
+      font-family: 'Geist', system-ui, sans-serif;
+      background: var(--surface);
+      color: var(--black);
+      padding: 60px 40px 100px;
+    }
+
+    .page { max-width: 980px; margin: 0 auto; }
+
+    header { margin-bottom: 64px; }
+    header .label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+    header p {
+      font-size: 14px;
+      color: #71717A;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* ── Section ── */
+    .section-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section { margin-bottom: 56px; }
+
+    /* ── 3-col variant grid ── */
+    .variants {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    @media (max-width: 620px) {
+      .variants { grid-template-columns: 1fr; }
+    }
+
+    .variant-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+
+    .variant-card .v-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .variant-card .v-label span {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .variant-card .v-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+      min-height: 260px;
+    }
+
+    .variant-card .v-meta {
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .variant-card .v-meta h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .variant-card .v-meta p {
+      font-size: 12px;
+      color: #71717A;
+      line-height: 1.5;
+    }
+
+    /* ── Full lockup ── */
+    .lockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    @media (max-width: 620px) { .lockup-grid { grid-template-columns: 1fr; } }
+
+    .lockup-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 56px 40px;
+      border: 1px solid var(--border);
+    }
+    .lockup-card.dark { background: var(--black); border-color: #1a1a1a; }
+
+    .lockup-wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .lockup-wordmark .name {
+      font-family: 'Geist', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      color: var(--black);
+    }
+    .lockup-wordmark .name.light { color: var(--white); }
+    .lockup-wordmark .sub {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Scale row ── */
+    .scale-row {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 28px 28px 32px;
+    }
+    .scale-row .scale-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .scale-items {
+      display: flex;
+      align-items: flex-end;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .scale-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .scale-item span {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      color: #D4D4D8;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="label">nallalabs.xyz — Bull Mark System</p>
+    <h1>Three Treatments</h1>
+    <p>Geometric bull head — architectural construction, three rendering approaches. Solid impact / Wireframe / Faceted planes.</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 1 — THREE VARIANTS                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section>
+    <p class="section-label">Variants</p>
+    <div class="variants">
+
+      <!-- ── A: SOLID IMPACT ── -->
+      <div class="variant-card">
+        <div class="v-label">
+          <span>Solid Impact</span>
+          <span>A</span>
+        </div>
+        <div class="v-display">
+          <svg width="140" height="154" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Left Horn -->
+            <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+            <!-- Right Horn -->
+            <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+
+            <!-- Main Head -->
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+
+            <!-- Left Eye (white diamond) -->
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <!-- Right Eye (white diamond) -->
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+
+            <!-- Muzzle plate (white) -->
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <!-- Nostrils (dark on white) -->
+            <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+            <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+
+            <!-- Architectural structure lines (thin white) -->
+            <!-- Center axis -->
+            <line x1="100" y1="72" x2="100" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+            <!-- Brow ridge left -->
+            <line x1="100" y1="83" x2="68" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+            <!-- Brow ridge right -->
+            <line x1="100" y1="83" x2="132" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+            <!-- Left cheek-to-muzzle -->
+            <line x1="42" y1="106" x2="64" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+            <!-- Right cheek-to-muzzle -->
+            <line x1="158" y1="106" x2="136" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="v-meta">
+          <h3>Solid Impact</h3>
+          <p>Black silhouette, white cut-outs. Maximum contrast. Primary mark for dark backgrounds and bold uses.</p>
+        </div>
+      </div>
+
+      <!-- ── B: ARCHITECTURAL WIREFRAME ── -->
+      <div class="variant-card">
+        <div class="v-label">
+          <span>Wireframe</span>
+          <span>B</span>
+        </div>
+        <div class="v-display">
+          <svg width="140" height="154" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Construction guides (architectural grid) -->
+            <!-- Circumscribed circle -->
+            <circle cx="100" cy="117" r="90" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <!-- Center axis vertical -->
+            <line x1="100" y1="5" x2="100" y2="215" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <!-- Horizontal mid axis -->
+            <line x1="10" y1="117" x2="190" y2="117" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <!-- Eye-level guide -->
+            <line x1="10" y1="96" x2="190" y2="96" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="2 6"/>
+
+            <!-- Left Horn outline -->
+            <polygon points="14,10 54,68 66,72" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+            <!-- Right Horn outline -->
+            <polygon points="186,10 146,68 134,72" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+
+            <!-- Head outline -->
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+
+            <!-- Eyes (outline diamonds) -->
+            <polygon points="65,96 78,83 91,96 78,109" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="miter"/>
+            <polygon points="109,96 122,83 135,96 122,109" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="miter"/>
+
+            <!-- Muzzle (outline rect) -->
+            <rect x="64" y="137" width="72" height="25" stroke="#0A0A0A" stroke-width="1.5"/>
+            <!-- Nostril outlines -->
+            <circle cx="81" cy="149" r="7" stroke="#0A0A0A" stroke-width="1.5"/>
+            <circle cx="119" cy="149" r="7" stroke="#0A0A0A" stroke-width="1.5"/>
+
+            <!-- Structure lines -->
+            <line x1="100" y1="72" x2="100" y2="137" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="100" y1="83" x2="68" y2="95" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="100" y1="83" x2="132" y2="95" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="42" y1="106" x2="64" y2="137" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="158" y1="106" x2="136" y2="137" stroke="#0A0A0A" stroke-width="1"/>
+
+            <!-- Horn axis line (thin) -->
+            <line x1="14" y1="10" x2="186" y2="10" stroke="#D4D4D8" stroke-width="0.6" stroke-dasharray="2 4"/>
+          </svg>
+        </div>
+        <div class="v-meta">
+          <h3>Architectural Wireframe</h3>
+          <p>Construction guides exposed — circles, axes, proportional grids. Engineering and precision reading.</p>
+        </div>
+      </div>
+
+      <!-- ── C: FACETED PLANES ── -->
+      <div class="variant-card">
+        <div class="v-label">
+          <span>Faceted Planes</span>
+          <span>C</span>
+        </div>
+        <div class="v-display">
+          <svg width="140" height="154" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- LEFT HORN — darker -->
+            <polygon points="14,10 54,68 66,72" fill="#111111"/>
+            <!-- RIGHT HORN — slightly lighter -->
+            <polygon points="186,10 146,68 134,72" fill="#1A1A1A"/>
+
+            <!--
+              Head divided into 6 triangular facets to suggest 3D volume.
+              Light source: top-right.
+              Darkest = left jaw (shadow). Lightest = right forehead (lit).
+            -->
+
+            <!-- Facet 1 — Left forehead: (55,72)(100,72)(100,96)(42,106) -->
+            <polygon points="55,72 100,72 100,96 42,106" fill="#141414"/>
+
+            <!-- Facet 2 — Right forehead (lit): (100,72)(145,72)(158,106)(100,96) -->
+            <polygon points="100,72 145,72 158,106 100,96" fill="#2A2A2A"/>
+
+            <!-- Facet 3 — Left mid: (42,106)(100,96)(100,137)(64,137) -->
+            <polygon points="42,106 100,96 100,137 64,137" fill="#0F0F0F"/>
+
+            <!-- Facet 4 — Right mid (lit): (100,96)(158,106)(136,137)(100,137) -->
+            <polygon points="100,96 158,106 136,137 100,137" fill="#222222"/>
+
+            <!-- Facet 5 — Left jaw (shadow): (42,106)(64,137)(62,162) -->
+            <polygon points="42,106 64,137 62,162" fill="#080808"/>
+
+            <!-- Facet 6 — Right jaw: (158,106)(138,162)(136,137) -->
+            <polygon points="158,106 138,162 136,137" fill="#161616"/>
+
+            <!-- Facet 7 — Bottom center: (62,162)(64,137)(136,137)(138,162) -->
+            <polygon points="62,162 64,137 136,137 138,162" fill="#0D0D0D"/>
+
+            <!-- Thin facet dividers (dark, barely visible) -->
+            <line x1="100" y1="72" x2="100" y2="162" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="100" y1="96" x2="42" y2="106" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="100" y1="96" x2="158" y2="106" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="100" y1="137" x2="64" y2="137" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="100" y1="137" x2="136" y2="137" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="64" y1="137" x2="42" y2="106" stroke="#0A0A0A" stroke-width="0.6"/>
+            <line x1="136" y1="137" x2="158" y2="106" stroke="#0A0A0A" stroke-width="0.6"/>
+
+            <!-- Outer edge -->
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="none" stroke="#0A0A0A" stroke-width="0.8"/>
+            <polygon points="14,10 54,68 66,72" fill="none" stroke="#0A0A0A" stroke-width="0.8"/>
+            <polygon points="186,10 146,68 134,72" fill="none" stroke="#0A0A0A" stroke-width="0.8"/>
+
+            <!-- Eyes (white cut-outs) -->
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+
+            <!-- Muzzle white plate -->
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <circle cx="81" cy="149" r="7" fill="#0D0D0D"/>
+            <circle cx="119" cy="149" r="7" fill="#0D0D0D"/>
+          </svg>
+        </div>
+        <div class="v-meta">
+          <h3>Faceted Planes</h3>
+          <p>Low-poly geometric faces simulate volume and depth. Each plane a distinct shade — like 3D architectural rendering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 2 — FULL LOCKUP                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section>
+    <p class="section-label">Full Lockup — Variant A (primary)</p>
+    <div class="lockup-grid">
+
+      <!-- Light -->
+      <div class="lockup-card" style="background:#FAFAFA; border-color:var(--border);">
+        <svg width="100" height="110" viewBox="0 0 200 220" fill="none">
+          <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+          <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+          <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+          <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+          <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+          <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+          <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+          <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+          <line x1="100" y1="72" x2="100" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+          <line x1="100" y1="83" x2="68" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+          <line x1="100" y1="83" x2="132" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+          <line x1="42" y1="106" x2="64" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+          <line x1="158" y1="106" x2="136" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+        </svg>
+        <div class="lockup-wordmark">
+          <span class="name">NALLA</span>
+          <span class="sub">LABS · BLOCKCHAIN INFRASTRUCTURE</span>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <div class="lockup-card dark">
+        <svg width="100" height="110" viewBox="0 0 200 220" fill="none">
+          <polygon points="14,10 54,68 66,72" fill="#FAFAFA"/>
+          <polygon points="186,10 146,68 134,72" fill="#FAFAFA"/>
+          <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#FAFAFA"/>
+          <polygon points="65,96 78,83 91,96 78,109" fill="#0A0A0A"/>
+          <polygon points="109,96 122,83 135,96 122,109" fill="#0A0A0A"/>
+          <rect x="64" y="137" width="72" height="25" fill="#0A0A0A"/>
+          <circle cx="81" cy="149" r="7" fill="#FAFAFA"/>
+          <circle cx="119" cy="149" r="7" fill="#FAFAFA"/>
+          <line x1="100" y1="72" x2="100" y2="137" stroke="#0A0A0A" stroke-width="1.2"/>
+          <line x1="100" y1="83" x2="68" y2="95" stroke="#0A0A0A" stroke-width="1.2"/>
+          <line x1="100" y1="83" x2="132" y2="95" stroke="#0A0A0A" stroke-width="1.2"/>
+          <line x1="42" y1="106" x2="64" y2="137" stroke="#0A0A0A" stroke-width="1.2"/>
+          <line x1="158" y1="106" x2="136" y2="137" stroke="#0A0A0A" stroke-width="1.2"/>
+        </svg>
+        <div class="lockup-wordmark">
+          <span class="name light">NALLA</span>
+          <span class="sub">LABS · BLOCKCHAIN INFRASTRUCTURE</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 3 — WITH BLUE ACCENT HORN TIPS    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section>
+    <p class="section-label">Accent Variant — Blue horn tips</p>
+    <div style="background:var(--white); border:1px solid var(--border); display:flex; gap:64px; align-items:center; justify-content:center; padding:56px 40px; flex-wrap:wrap;">
+
+      <!-- Bull + blue horn accent -->
+      <svg width="120" height="132" viewBox="0 0 200 220" fill="none">
+        <!-- Horns — blue -->
+        <polygon points="14,10 54,68 66,72" fill="#1D4ED8"/>
+        <polygon points="186,10 146,68 134,72" fill="#1D4ED8"/>
+        <!-- Head — black -->
+        <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+        <!-- Eyes -->
+        <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+        <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+        <!-- Muzzle -->
+        <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+        <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+        <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+        <!-- Lines -->
+        <line x1="100" y1="72" x2="100" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+        <line x1="100" y1="83" x2="68" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+        <line x1="100" y1="83" x2="132" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+        <line x1="42" y1="106" x2="64" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+        <line x1="158" y1="106" x2="136" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+      </svg>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <p style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#1D4ED8;margin-bottom:4px;">Accent Variant</p>
+        <p style="font-size:14px;color:#52525B;line-height:1.6;max-width:260px;">
+          Blue horns signal the financial/bullish dimension — one color touch on an otherwise monochrome mark.
+          Conservative. Effective at any size.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 4 — SCALE REFERENCE               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section>
+    <p class="section-label">Scale — Variant A</p>
+    <div class="scale-row">
+      <p class="scale-label">Mark at 4 sizes</p>
+      <div class="scale-items">
+
+        <div class="scale-item">
+          <svg width="18" height="20" viewBox="0 0 200 220" fill="none">
+            <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+            <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+            <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+          </svg>
+          <span>18px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="32" height="35" viewBox="0 0 200 220" fill="none">
+            <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+            <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+            <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+          </svg>
+          <span>32px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="56" height="62" viewBox="0 0 200 220" fill="none">
+            <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+            <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+            <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+            <line x1="100" y1="72" x2="100" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="100" y1="83" x2="68" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="100" y1="83" x2="132" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+          </svg>
+          <span>56px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="100" height="110" viewBox="0 0 200 220" fill="none">
+            <polygon points="14,10 54,68 66,72" fill="#0A0A0A"/>
+            <polygon points="186,10 146,68 134,72" fill="#0A0A0A"/>
+            <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#0A0A0A"/>
+            <polygon points="65,96 78,83 91,96 78,109" fill="#FAFAFA"/>
+            <polygon points="109,96 122,83 135,96 122,109" fill="#FAFAFA"/>
+            <rect x="64" y="137" width="72" height="25" fill="#FAFAFA"/>
+            <circle cx="81" cy="149" r="7" fill="#0A0A0A"/>
+            <circle cx="119" cy="149" r="7" fill="#0A0A0A"/>
+            <line x1="100" y1="72" x2="100" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="100" y1="83" x2="68" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="100" y1="83" x2="132" y2="95" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="42" y1="106" x2="64" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+            <line x1="158" y1="106" x2="136" y2="137" stroke="#FAFAFA" stroke-width="1.2"/>
+          </svg>
+          <span>100px</span>
+        </div>
+
+        <!-- Favicon preview -->
+        <div class="scale-item">
+          <div style="width:32px;height:32px;background:#0A0A0A;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="24" viewBox="0 0 200 220" fill="none">
+              <polygon points="14,10 54,68 66,72" fill="#FAFAFA"/>
+              <polygon points="186,10 146,68 134,72" fill="#FAFAFA"/>
+              <polygon points="55,72 145,72 158,106 138,162 62,162 42,106" fill="#FAFAFA"/>
+              <polygon points="65,96 78,83 91,96 78,109" fill="#0A0A0A"/>
+              <polygon points="109,96 122,83 135,96 122,109" fill="#0A0A0A"/>
+              <rect x="64" y="137" width="72" height="25" fill="#0A0A0A"/>
+              <circle cx="81" cy="149" r="7" fill="#FAFAFA"/>
+              <circle cx="119" cy="149" r="7" fill="#FAFAFA"/>
+            </svg>
+          </div>
+          <span>favicon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -50,6 +50,29 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Contact form
+
+The contact form posts inquiries to `/api/contact` and expects email delivery to be configured with Resend.
+
+Required environment variables:
+
+```bash
+RESEND_API_KEY=...
+CONTACT_TO_EMAIL=hello@nallalabs.xyz
+CONTACT_FROM_EMAIL="Nalla Labs <onboarding@resend.dev>"
+```
+
+If those variables are missing, the form will return a configuration error instead of silently dropping messages.
+
+## SEO
+
+The site now includes:
+
+- canonical metadata
+- robots.txt and sitemap.xml
+- Open Graph and Twitter metadata
+- JSON-LD organization schema
+
 ## Build
 
 ```bash

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nalla Labs — Logo Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --white: #FAFAFA;
+      --surface: #F4F4F5;
+      --border: #E4E4E7;
+      --muted: #A1A1AA;
+    }
+
+    body {
+      font-family: 'Geist', system-ui, sans-serif;
+      background: var(--surface);
+      color: var(--black);
+      padding: 60px 40px;
+    }
+
+    header {
+      max-width: 960px;
+      margin: 0 auto 64px;
+    }
+
+    header p.label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--black);
+    }
+
+    header p.sub {
+      font-size: 14px;
+      color: #71717A;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .card-label {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-label span {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card-label .concept-num {
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      color: #D4D4D8;
+    }
+
+    /* Logo display areas */
+    .display-light {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px;
+      min-height: 200px;
+    }
+
+    .display-dark {
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 40px;
+      min-height: 120px;
+    }
+
+    .card-meta {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-meta h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .card-meta p {
+      font-size: 12px;
+      color: #71717A;
+      line-height: 1.5;
+    }
+
+    /* ─── LOGO A: NL Monogram ─── */
+    .logo-a svg { display: block; }
+
+    /* ─── LOGO B: Bold Stacked Wordmark ─── */
+    .logo-b {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .logo-b .wordmark {
+      font-family: 'Geist', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .logo-b .wordmark-dark {
+      color: var(--white);
+    }
+
+    .logo-b .sub-mark {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .logo-b .sub-mark-dark {
+      color: #52525B;
+    }
+
+    /* ─── LOGO C: N-mark + horizontal lockup ─── */
+    .logo-c {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-c .divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+
+    .logo-c .divider-dark {
+      background: #27272A;
+    }
+
+    .logo-c .text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-c .text-group .name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .logo-c .text-group .name-dark {
+      color: var(--white);
+    }
+
+    .logo-c .text-group .tagline {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── LOGO D: Bracket Mark ─── */
+    .logo-d {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .logo-d .bracket-word {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .logo-d .bracket {
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1;
+      color: #1D4ED8;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-d .word {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .logo-d .word-dark { color: var(--white); }
+
+    .logo-d .labs-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 14px;
+    }
+
+    .logo-d .labs-text {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .logo-d .labs-line {
+      height: 1px;
+      width: 28px;
+      background: var(--border);
+    }
+
+    .logo-d .labs-line-dark { background: #27272A; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="label">nallalabs.xyz — Logo System</p>
+    <h1>Four Concepts</h1>
+    <p class="sub">Each concept shown light + dark. All use Geist / Geist Mono. Black, white, and one blue accent.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- CONCEPT 01 — NL Geometric Monogram        -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <span>NL Monogram</span>
+        <span class="concept-num">01</span>
+      </div>
+
+      <div class="display-light logo-a">
+        <!-- Light version -->
+        <svg width="72" height="96" viewBox="0 0 72 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- N strokes: left vertical, diagonal, right vertical that extends down for L -->
+          <!-- Stroke-based, weight 7px, square caps -->
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <!-- L horizontal foot -->
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <!-- Vertex node at diagonal midpoint -->
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+      </div>
+
+      <div class="display-dark logo-a">
+        <!-- Dark version -->
+        <svg width="72" height="96" viewBox="0 0 72 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#FAFAFA" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#FAFAFA" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#FAFAFA" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#FAFAFA" stroke-width="7" stroke-linecap="square"/>
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+      </div>
+
+      <div class="card-meta">
+        <h3>NL Geometric Monogram</h3>
+        <p>N and L share a vertical stroke. The diagonal midpoint carries a blue vertex node — a subtle infrastructure signal.</p>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- CONCEPT 02 — Bold Stacked Wordmark        -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <span>Stacked Wordmark</span>
+        <span class="concept-num">02</span>
+      </div>
+
+      <div class="display-light">
+        <div class="logo-b">
+          <span class="wordmark">NALLA</span>
+          <span class="sub-mark">LABS · BLOCKCHAIN INFRASTRUCTURE</span>
+        </div>
+      </div>
+
+      <div class="display-dark">
+        <div class="logo-b">
+          <span class="wordmark wordmark-dark">NALLA</span>
+          <span class="sub-mark sub-mark-dark">LABS · BLOCKCHAIN INFRASTRUCTURE</span>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <h3>Bold Stacked Wordmark</h3>
+        <p>Heavy weight, tight tracking on "NALLA". Geist Mono micro-label below adds technical precision without noise.</p>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- CONCEPT 03 — N-mark Horizontal Lockup     -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <span>Horizontal Lockup</span>
+        <span class="concept-num">03</span>
+      </div>
+
+      <div class="display-light">
+        <div class="logo-c">
+          <!-- N mark with structural frame -->
+          <svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Thin outer frame -->
+            <rect x="1" y="1" width="46" height="50" stroke="#E4E4E7" stroke-width="1"/>
+            <!-- Bold N inside -->
+            <line x1="10" y1="11" x2="10" y2="41" stroke="#0A0A0A" stroke-width="5.5" stroke-linecap="square"/>
+            <line x1="10" y1="11" x2="38" y2="41" stroke="#0A0A0A" stroke-width="5.5" stroke-linecap="square"/>
+            <line x1="38" y1="11" x2="38" y2="41" stroke="#0A0A0A" stroke-width="5.5" stroke-linecap="square"/>
+          </svg>
+          <div class="divider"></div>
+          <div class="text-group">
+            <span class="name">Nalla Labs</span>
+            <span class="tagline">Blockchain Infrastructure</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="display-dark">
+        <div class="logo-c">
+          <svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="46" height="50" stroke="#27272A" stroke-width="1"/>
+            <line x1="10" y1="11" x2="10" y2="41" stroke="#FAFAFA" stroke-width="5.5" stroke-linecap="square"/>
+            <line x1="10" y1="11" x2="38" y2="41" stroke="#FAFAFA" stroke-width="5.5" stroke-linecap="square"/>
+            <line x1="38" y1="11" x2="38" y2="41" stroke="#FAFAFA" stroke-width="5.5" stroke-linecap="square"/>
+          </svg>
+          <div class="divider divider-dark"></div>
+          <div class="text-group">
+            <span class="name name-dark">Nalla Labs</span>
+            <span class="tagline">Blockchain Infrastructure</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <h3>Framed N + Horizontal Lockup</h3>
+        <p>N mark inside a thin structural frame. Reads like a system icon. Works at small sizes and as a favicon.</p>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- CONCEPT 04 — Bracket Wordmark             -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <span>Bracket Mark</span>
+        <span class="concept-num">04</span>
+      </div>
+
+      <div class="display-light">
+        <div class="logo-d">
+          <div class="bracket-word">
+            <span class="bracket">[</span>
+            <span class="word">NALLA</span>
+            <span class="bracket">]</span>
+          </div>
+          <div class="labs-row">
+            <span class="labs-line"></span>
+            <span class="labs-text">Labs</span>
+            <span class="labs-line"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="display-dark" style="background: #0A0A0A;">
+        <div class="logo-d">
+          <div class="bracket-word">
+            <span class="bracket">[</span>
+            <span class="word word-dark">NALLA</span>
+            <span class="bracket">]</span>
+          </div>
+          <div class="labs-row">
+            <span class="labs-line labs-line-dark"></span>
+            <span class="labs-text">Labs</span>
+            <span class="labs-line labs-line-dark"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <h3>Bracket Wordmark</h3>
+        <p>Blue brackets frame the name — signals containment, structure, code. "Labs" floats below with flanking rules.</p>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+
+
+  <!-- ── Scale reference ── -->
+  <div style="max-width: 960px; margin: 40px auto 0; border: 1px solid var(--border); background: var(--white); padding: 32px 28px;">
+    <p style="font-family:'Geist Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:24px;">Scale reference — Concept 01</p>
+    <div style="display:flex; align-items:flex-end; gap:40px; flex-wrap:wrap;">
+
+      <!-- 16px -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <svg width="16" height="21" viewBox="0 0 72 96" fill="none">
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+        <span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted)">16px</span>
+      </div>
+
+      <!-- 32px -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <svg width="32" height="43" viewBox="0 0 72 96" fill="none">
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+        <span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted)">32px</span>
+      </div>
+
+      <!-- 56px -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <svg width="56" height="75" viewBox="0 0 72 96" fill="none">
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+        <span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted)">56px</span>
+      </div>
+
+      <!-- 96px -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <svg width="96" height="128" viewBox="0 0 72 96" fill="none">
+          <line x1="10" y1="4" x2="10" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="10" y1="4" x2="52" y2="64" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="4" x2="52" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <line x1="52" y1="88" x2="72" y2="88" stroke="#0A0A0A" stroke-width="7" stroke-linecap="square"/>
+          <circle cx="31" cy="34" r="4" fill="#1D4ED8"/>
+        </svg>
+        <span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted)">96px</span>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

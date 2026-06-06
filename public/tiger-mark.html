@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nalla Labs — Tiger Mark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Geist', system-ui, sans-serif;
+      background: #F4F4F5;
+      color: #0A0A0A;
+      padding: 64px 40px 100px;
+    }
+
+    .page { max-width: 1000px; margin: 0 auto; }
+
+    header { margin-bottom: 64px; }
+    .label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #A1A1AA;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+    header p.sub {
+      font-size: 14px;
+      color: #71717A;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #A1A1AA;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E4E4E7;
+    }
+    section { margin-bottom: 56px; }
+
+    /* Variant grid */
+    .variants {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 640px) { .variants { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #FAFAFA;
+      border: 1px solid #E4E4E7;
+      overflow: hidden;
+    }
+    .card.dark-card { background: #0A0A0A; border-color: #1a1a1a; }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 1px solid #E4E4E7;
+    }
+    .dark-card .card-top { border-bottom-color: #1a1a1a; }
+    .card-top span {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #A1A1AA;
+    }
+    .dark-card .card-top span { color: #3F3F46; }
+
+    .card-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 40px;
+      min-height: 280px;
+    }
+
+    .card-foot {
+      padding: 14px 18px;
+      border-top: 1px solid #E4E4E7;
+    }
+    .dark-card .card-foot { border-top-color: #1a1a1a; }
+    .card-foot h3 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .dark-card .card-foot h3 { color: #FAFAFA; }
+    .card-foot p { font-size: 12px; color: #71717A; line-height: 1.5; }
+
+    /* Lockup section */
+    .lockup-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 640px) { .lockup-row { grid-template-columns: 1fr; } }
+
+    .lockup-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 52px 32px;
+      border: 1px solid #E4E4E7;
+      background: #FAFAFA;
+    }
+    .lockup-cell.on-dark { background: #0A0A0A; border-color: #1a1a1a; }
+    .lockup-cell.on-surface { background: #F4F4F5; }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .wordmark .w-name {
+      font-family: 'Geist', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      color: #0A0A0A;
+    }
+    .wordmark .w-name.light { color: #FAFAFA; }
+    .wordmark .w-sub {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: #A1A1AA;
+    }
+
+    /* Scale */
+    .scale-wrap {
+      background: #FAFAFA;
+      border: 1px solid #E4E4E7;
+      padding: 28px 32px;
+    }
+    .scale-items {
+      display: flex;
+      align-items: flex-end;
+      gap: 44px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .scale-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .scale-item span {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      color: #D4D4D8;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="label">nallalabs.xyz — Tiger Mark System</p>
+    <h1>Tiger Head — Geometric Roar</h1>
+    <p class="sub">Frontal roar, diamond eyes, sharp fangs. Angular ears, whisker lines. Three rendering approaches.</p>
+  </header>
+
+
+  <!-- ═══════════════════════════════════ -->
+  <!--  VARIANTS                          -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <p class="section-label">Three Variants</p>
+    <div class="variants">
+
+      <!-- ── A: SOLID ── -->
+      <div class="card">
+        <div class="card-top"><span>Solid Impact</span><span>A</span></div>
+        <div class="card-display">
+          <svg width="138" height="166" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Ears -->
+            <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+            <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+            <!-- Inner ear (white) -->
+            <polygon points="30,22 42,60 66,60" fill="#FAFAFA"/>
+            <polygon points="170,22 158,60 134,60" fill="#FAFAFA"/>
+
+            <!-- Head -->
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+
+            <!-- Diamond eyes (white) -->
+            <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+
+            <!--
+              Roaring mouth — one white polygon with jagged edges.
+              Upper edge: 2 large fangs + 4 small incisors.
+              Lower edge: 2 lower fangs.
+            -->
+            <polygon
+              points="
+                48,150
+                62,150  66,176  70,150
+                78,150  81,160  84,150
+                92,150  95,158  98,150
+                102,150 105,158 108,150
+                116,150 119,160 122,150
+                130,150 134,176 138,150
+                152,150
+                152,173
+                138,154  124,173
+                100,170
+                76,173   62,154
+                48,173
+              "
+              fill="#FAFAFA"
+            />
+
+            <!-- Nose bridge (white lines) -->
+            <polyline points="93,124 100,116 107,124" stroke="#FAFAFA" stroke-width="1.5" fill="none" stroke-linejoin="miter"/>
+
+            <!-- Architectural structure lines (thin white) -->
+            <line x1="100" y1="60"  x2="100" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="100" y1="76"  x2="65"  y2="90"  stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="100" y1="76"  x2="135" y2="90"  stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="25"  y1="110" x2="48"  y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="175" y1="110" x2="152" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+
+            <!-- Whisker lines (thin white, radiating outward) -->
+            <line x1="58"  y1="124" x2="26"  y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58"  y1="133" x2="26"  y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58"  y1="142" x2="26"  y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="124" x2="174" y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="133" x2="174" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="142" x2="174" y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+          </svg>
+        </div>
+        <div class="card-foot">
+          <h3>Solid Impact</h3>
+          <p>Black silhouette, white cut-outs. Roar expressed through a single jagged polygon. Whisker and brow lines add architectural precision.</p>
+        </div>
+      </div>
+
+
+      <!-- ── B: WIREFRAME ── -->
+      <div class="card">
+        <div class="card-top"><span>Wireframe</span><span>B</span></div>
+        <div class="card-display">
+          <svg width="138" height="166" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Construction grid (architectural) -->
+            <circle cx="100" cy="118" r="90" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <circle cx="100" cy="90"  r="20" stroke="#E8E8E8" stroke-width="0.5" stroke-dasharray="2 5"/>
+            <line x1="100" y1="5" x2="100" y2="235" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <line x1="5"   y1="118" x2="195" y2="118" stroke="#E4E4E7" stroke-width="0.6" stroke-dasharray="4 4"/>
+            <!-- Eye level guide -->
+            <line x1="5" y1="90" x2="195" y2="90" stroke="#EBEBEB" stroke-width="0.5" stroke-dasharray="2 6"/>
+            <!-- Mouth level guide -->
+            <line x1="5" y1="150" x2="195" y2="150" stroke="#EBEBEB" stroke-width="0.5" stroke-dasharray="2 6"/>
+
+            <!-- Registration marks -->
+            <g stroke="#D4D4D8" stroke-width="0.7">
+              <line x1="97" y1="3" x2="103" y2="3"/><line x1="100" y1="0" x2="100" y2="6"/>
+              <line x1="97" y1="237" x2="103" y2="237"/><line x1="100" y1="234" x2="100" y2="240"/>
+              <line x1="3" y1="117" x2="3" y2="123"/><line x1="0" y1="120" x2="6" y2="120"/>
+              <line x1="197" y1="117" x2="197" y2="123"/><line x1="194" y1="120" x2="200" y2="120"/>
+            </g>
+
+            <!-- Outlines only — no fill -->
+            <polygon points="18,8 40,60 76,60" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+            <polygon points="182,8 160,60 124,60" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+            <polygon points="30,22 42,60 66,60" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="miter"/>
+            <polygon points="170,22 158,60 134,60" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="miter"/>
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" stroke="#0A0A0A" stroke-width="1.8" stroke-linejoin="miter"/>
+
+            <!-- Eyes outline -->
+            <polygon points="56,90 70,76 84,90 70,104" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="miter"/>
+            <polygon points="116,90 130,76 144,90 130,104" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="miter"/>
+
+            <!-- Mouth outline (jagged) -->
+            <polygon
+              points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173"
+              stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="miter"
+            />
+
+            <!-- Structure lines -->
+            <line x1="100" y1="60"  x2="100" y2="150" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="100" y1="76"  x2="65"  y2="90"  stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="100" y1="76"  x2="135" y2="90"  stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="25"  y1="110" x2="48"  y2="150" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="175" y1="110" x2="152" y2="150" stroke="#0A0A0A" stroke-width="1"/>
+            <polyline points="93,124 100,116 107,124" stroke="#0A0A0A" stroke-width="1.2" fill="none" stroke-linejoin="miter"/>
+
+            <!-- Whiskers (outline) -->
+            <line x1="58"  y1="124" x2="26"  y2="115" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="58"  y1="133" x2="26"  y2="133" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="58"  y1="142" x2="26"  y2="148" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="142" y1="124" x2="174" y2="115" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="142" y1="133" x2="174" y2="133" stroke="#0A0A0A" stroke-width="1"/>
+            <line x1="142" y1="142" x2="174" y2="148" stroke="#0A0A0A" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="card-foot">
+          <h3>Architectural Wireframe</h3>
+          <p>Proportional circles, axes, eye-level and mouth-level guides. Registration marks at cardinal points. Engineering blueprint aesthetic.</p>
+        </div>
+      </div>
+
+
+      <!-- ── C: DARK + BLUE ACCENT ── -->
+      <div class="card dark-card">
+        <div class="card-top"><span>Dark + Accent</span><span>C</span></div>
+        <div class="card-display" style="background:#0A0A0A;">
+          <svg width="138" height="166" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Ears -->
+            <polygon points="18,8 40,60 76,60" fill="#FAFAFA"/>
+            <polygon points="182,8 160,60 124,60" fill="#FAFAFA"/>
+            <!-- Inner ear — blue -->
+            <polygon points="30,22 42,60 66,60" fill="#1D4ED8"/>
+            <polygon points="170,22 158,60 134,60" fill="#1D4ED8"/>
+
+            <!-- Head — white on dark -->
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#FAFAFA"/>
+
+            <!-- Diamond eyes — BLUE -->
+            <polygon points="56,90 70,76 84,90 70,104" fill="#1D4ED8"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#1D4ED8"/>
+
+            <!-- Roaring mouth (dark cutout on white head) -->
+            <polygon
+              points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173"
+              fill="#0A0A0A"
+            />
+
+            <!-- Nose -->
+            <polyline points="93,124 100,116 107,124" stroke="#0A0A0A" stroke-width="1.5" fill="none" stroke-linejoin="miter"/>
+
+            <!-- Structure lines — blue -->
+            <line x1="100" y1="60"  x2="100" y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="100" y1="76"  x2="65"  y2="90"  stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="100" y1="76"  x2="135" y2="90"  stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="25"  y1="110" x2="48"  y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="175" y1="110" x2="152" y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+
+            <!-- Whiskers — blue -->
+            <line x1="58"  y1="124" x2="26"  y2="115" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="58"  y1="133" x2="26"  y2="133" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="58"  y1="142" x2="26"  y2="148" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="142" y1="124" x2="174" y2="115" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="142" y1="133" x2="174" y2="133" stroke="#1D4ED8" stroke-width="1.1"/>
+            <line x1="142" y1="142" x2="174" y2="148" stroke="#1D4ED8" stroke-width="1.1"/>
+          </svg>
+        </div>
+        <div class="card-foot">
+          <h3>Dark + Blue Accent</h3>
+          <p>White mark on black. Blue diamond eyes and inner ears. Structural lines in accent blue. High contrast for dark surfaces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════ -->
+  <!--  FULL LOCKUP                       -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <p class="section-label">Full Lockup — Variant A · light · dark · surface</p>
+    <div class="lockup-row">
+
+      <!-- Light -->
+      <div class="lockup-cell">
+        <svg width="100" height="120" viewBox="0 0 200 240" fill="none">
+          <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+          <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+          <polygon points="30,22 42,60 66,60" fill="#FAFAFA"/>
+          <polygon points="170,22 158,60 134,60" fill="#FAFAFA"/>
+          <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+          <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+          <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+          <polygon points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173" fill="#FAFAFA"/>
+          <polyline points="93,124 100,116 107,124" stroke="#FAFAFA" stroke-width="1.5" fill="none" stroke-linejoin="miter"/>
+          <line x1="100" y1="60" x2="100" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="65" y2="90" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="135" y2="90" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="25" y1="110" x2="48" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="175" y1="110" x2="152" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="58" y1="124" x2="26" y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="58" y1="133" x2="26" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="58" y1="142" x2="26" y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="142" y1="124" x2="174" y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="142" y1="133" x2="174" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+          <line x1="142" y1="142" x2="174" y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+        </svg>
+        <div class="wordmark">
+          <span class="w-name">NALLA</span>
+          <span class="w-sub">LABS</span>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <div class="lockup-cell on-dark">
+        <svg width="100" height="120" viewBox="0 0 200 240" fill="none">
+          <polygon points="18,8 40,60 76,60" fill="#FAFAFA"/>
+          <polygon points="182,8 160,60 124,60" fill="#FAFAFA"/>
+          <polygon points="30,22 42,60 66,60" fill="#1D4ED8"/>
+          <polygon points="170,22 158,60 134,60" fill="#1D4ED8"/>
+          <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#FAFAFA"/>
+          <polygon points="56,90 70,76 84,90 70,104" fill="#1D4ED8"/>
+          <polygon points="116,90 130,76 144,90 130,104" fill="#1D4ED8"/>
+          <polygon points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173" fill="#0A0A0A"/>
+          <polyline points="93,124 100,116 107,124" stroke="#0A0A0A" stroke-width="1.5" fill="none" stroke-linejoin="miter"/>
+          <line x1="100" y1="60" x2="100" y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="65" y2="90" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="135" y2="90" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="25" y1="110" x2="48" y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="175" y1="110" x2="152" y2="150" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="58" y1="124" x2="26" y2="115" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="58" y1="133" x2="26" y2="133" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="58" y1="142" x2="26" y2="148" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="142" y1="124" x2="174" y2="115" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="142" y1="133" x2="174" y2="133" stroke="#1D4ED8" stroke-width="1.1"/>
+          <line x1="142" y1="142" x2="174" y2="148" stroke="#1D4ED8" stroke-width="1.1"/>
+        </svg>
+        <div class="wordmark">
+          <span class="w-name light">NALLA</span>
+          <span class="w-sub">LABS</span>
+        </div>
+      </div>
+
+      <!-- Surface -->
+      <div class="lockup-cell on-surface">
+        <svg width="100" height="120" viewBox="0 0 200 240" fill="none">
+          <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+          <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+          <polygon points="30,22 42,60 66,60" fill="#F4F4F5"/>
+          <polygon points="170,22 158,60 134,60" fill="#F4F4F5"/>
+          <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+          <polygon points="56,90 70,76 84,90 70,104" fill="#F4F4F5"/>
+          <polygon points="116,90 130,76 144,90 130,104" fill="#F4F4F5"/>
+          <polygon points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173" fill="#F4F4F5"/>
+          <polyline points="93,124 100,116 107,124" stroke="#F4F4F5" stroke-width="1.5" fill="none" stroke-linejoin="miter"/>
+          <line x1="100" y1="60" x2="100" y2="150" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="65" y2="90" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="100" y1="76" x2="135" y2="90" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="25" y1="110" x2="48" y2="150" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="175" y1="110" x2="152" y2="150" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="58" y1="124" x2="26" y2="115" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="58" y1="133" x2="26" y2="133" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="58" y1="142" x2="26" y2="148" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="142" y1="124" x2="174" y2="115" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="142" y1="133" x2="174" y2="133" stroke="#F4F4F5" stroke-width="1.1"/>
+          <line x1="142" y1="142" x2="174" y2="148" stroke="#F4F4F5" stroke-width="1.1"/>
+        </svg>
+        <div class="wordmark">
+          <span class="w-name">NALLA</span>
+          <span class="w-sub">LABS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════ -->
+  <!--  SCALE REFERENCE                   -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <p class="section-label">Scale — Variant A</p>
+    <div class="scale-wrap">
+      <p class="label">Mark at 5 sizes</p>
+      <div class="scale-items">
+
+        <div class="scale-item">
+          <svg width="20" height="24" viewBox="0 0 200 240" fill="none">
+            <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+            <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+            <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+            <polygon points="48,150 62,150 66,176 70,150 130,150 134,176 138,150 152,150 152,173 138,154 100,170 62,154 48,173" fill="#FAFAFA"/>
+          </svg>
+          <span>20px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="36" height="43" viewBox="0 0 200 240" fill="none">
+            <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+            <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+            <polygon points="30,22 42,60 66,60" fill="#FAFAFA"/>
+            <polygon points="170,22 158,60 134,60" fill="#FAFAFA"/>
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+            <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+            <polygon points="48,150 62,150 66,176 70,150 130,150 134,176 138,150 152,150 152,173 138,154 100,170 62,154 48,173" fill="#FAFAFA"/>
+          </svg>
+          <span>36px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="60" height="72" viewBox="0 0 200 240" fill="none">
+            <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+            <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+            <polygon points="30,22 42,60 66,60" fill="#FAFAFA"/>
+            <polygon points="170,22 158,60 134,60" fill="#FAFAFA"/>
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+            <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+            <polygon points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 130,150 134,176 138,150 152,150 152,173 138,154 100,170 62,154 48,173" fill="#FAFAFA"/>
+            <line x1="100" y1="60" x2="100" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58" y1="133" x2="26" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="133" x2="174" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+          </svg>
+          <span>60px</span>
+        </div>
+
+        <div class="scale-item">
+          <svg width="96" height="115" viewBox="0 0 200 240" fill="none">
+            <polygon points="18,8 40,60 76,60" fill="#0A0A0A"/>
+            <polygon points="182,8 160,60 124,60" fill="#0A0A0A"/>
+            <polygon points="30,22 42,60 66,60" fill="#FAFAFA"/>
+            <polygon points="170,22 158,60 134,60" fill="#FAFAFA"/>
+            <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#0A0A0A"/>
+            <polygon points="56,90 70,76 84,90 70,104" fill="#FAFAFA"/>
+            <polygon points="116,90 130,76 144,90 130,104" fill="#FAFAFA"/>
+            <polygon points="48,150 62,150 66,176 70,150 78,150 81,160 84,150 92,150 95,158 98,150 102,150 105,158 108,150 116,150 119,160 122,150 130,150 134,176 138,150 152,150 152,173 138,154 124,173 100,170 76,173 62,154 48,173" fill="#FAFAFA"/>
+            <polyline points="93,124 100,116 107,124" stroke="#FAFAFA" stroke-width="1.5" fill="none"/>
+            <line x1="100" y1="60" x2="100" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="100" y1="76" x2="65" y2="90" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="100" y1="76" x2="135" y2="90" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="25" y1="110" x2="48" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="175" y1="110" x2="152" y2="150" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58" y1="124" x2="26" y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58" y1="133" x2="26" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="58" y1="142" x2="26" y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="124" x2="174" y2="115" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="133" x2="174" y2="133" stroke="#FAFAFA" stroke-width="1.1"/>
+            <line x1="142" y1="142" x2="174" y2="148" stroke="#FAFAFA" stroke-width="1.1"/>
+          </svg>
+          <span>96px</span>
+        </div>
+
+        <!-- Favicon on dark pill -->
+        <div class="scale-item">
+          <div style="width:36px;height:36px;background:#0A0A0A;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <svg width="24" height="29" viewBox="0 0 200 240" fill="none">
+              <polygon points="18,8 40,60 76,60" fill="#FAFAFA"/>
+              <polygon points="182,8 160,60 124,60" fill="#FAFAFA"/>
+              <polygon points="40,60 160,60 175,110 155,178 45,178 25,110" fill="#FAFAFA"/>
+              <polygon points="56,90 70,76 84,90 70,104" fill="#1D4ED8"/>
+              <polygon points="116,90 130,76 144,90 130,104" fill="#1D4ED8"/>
+              <polygon points="48,150 62,150 66,176 70,150 130,150 134,176 138,150 152,150 152,173 100,170 48,173" fill="#0A0A0A"/>
+            </svg>
+          </div>
+          <span>favicon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
