@@ -5,6 +5,7 @@ const footerLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#work" },
+  { label: "Events", href: "/events/tech-for-media-2026" },
   { label: "Insights", href: "#insights" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
@@ -68,6 +69,12 @@ export function Footer() {
           <p className="text-xs text-[#52525B]">
             © {new Date().getFullYear()} Nalla Labs. All rights reserved.
           </p>
+          <a
+            href="/events/tech-for-media-2026"
+            className="text-xs text-[#71717A] hover:text-[#FAFAFA] transition-colors text-center md:text-right"
+          >
+            Tech for Media Exhibition Programme 2026 registration is open.
+          </a>
         </div>
       </div>
     </footer>

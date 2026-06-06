@@ -13,12 +13,46 @@ const projectTypes = [
 ];
 
 export function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Replace with actual form submission (Resend, Formspree, etc.)
-    setSubmitted(true);
+    const form = e.currentTarget;
+    setStatus("submitting");
+    setErrorMessage(null);
+
+    const formData = new FormData(form);
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      company: String(formData.get("company") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      projectType: String(formData.get("projectType") || "").trim(),
+      message: String(formData.get("message") || "").trim(),
+      website: String(formData.get("website") || "").trim(),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = (await response.json()) as { message?: string; error?: string };
+
+      if (!response.ok) {
+        throw new Error(data.error || "We could not send your inquiry.");
+      }
+
+      form.reset();
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong.");
+    }
   };
 
   return (
@@ -57,19 +91,30 @@ export function Contact() {
 
           {/* Right — form */}
           <FadeUp delay={0.1}>
-            {submitted ? (
+            {status === "success" ? (
               <div className="border border-[#E4E4E7] bg-white p-10 flex flex-col items-center justify-center text-center h-full min-h-64">
                 <p className="label-mono text-[#1D4ED8] mb-3">Received</p>
                 <p className="text-[#0A0A0A] font-semibold text-lg mb-2">Thanks for reaching out.</p>
-                <p className="text-sm text-[#52525B]">We&apos;ll be in touch within 24 hours.</p>
+                <p className="text-sm text-[#52525B]">
+                  We&apos;ll review it and reply from hello@nallalabs.xyz.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="label-mono block mb-2">Name</label>
                     <input
                       type="text"
+                      name="name"
                       required
                       placeholder="Your name"
                       className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
@@ -79,6 +124,7 @@ export function Contact() {
                     <label className="label-mono block mb-2">Company</label>
                     <input
                       type="text"
+                      name="company"
                       placeholder="Company name"
                       className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
                     />
@@ -89,6 +135,7 @@ export function Contact() {
                   <label className="label-mono block mb-2">Email</label>
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder="you@company.com"
                     className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
@@ -97,7 +144,10 @@ export function Contact() {
 
                 <div>
                   <label className="label-mono block mb-2">Project type</label>
-                  <select className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] focus:outline-none focus:border-[#0A0A0A] transition-colors appearance-none">
+                  <select
+                    name="projectType"
+                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] focus:outline-none focus:border-[#0A0A0A] transition-colors appearance-none"
+                  >
                     {projectTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -109,17 +159,23 @@ export function Contact() {
                 <div>
                   <label className="label-mono block mb-2">Brief description</label>
                   <textarea
+                    name="message"
                     rows={4}
                     placeholder="Tell us what you're working on..."
                     className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors resize-none"
                   />
                 </div>
 
+                {status === "error" && errorMessage ? (
+                  <p className="text-sm text-red-600">{errorMessage}</p>
+                ) : null}
+
                 <button
                   type="submit"
-                  className="w-full bg-[#0A0A0A] text-[#FAFAFA] text-sm py-3 hover:bg-[#27272A] transition-colors duration-150"
+                  disabled={status === "submitting"}
+                  className="w-full bg-[#0A0A0A] text-[#FAFAFA] text-sm py-3 hover:bg-[#27272A] transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send message
+                  {status === "submitting" ? "Sending..." : "Send message"}
                 </button>
               </form>
             )}

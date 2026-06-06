@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#work" },
+  { label: "Events", href: "/events/tech-for-media-2026" },
   { label: "Insights", href: "#insights" },
   { label: "About", href: "#about" },
 ];
@@ -25,6 +26,11 @@ export function Nav() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    if (href.startsWith("/")) {
+      window.location.assign(href);
+      return;
+    }
+
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
