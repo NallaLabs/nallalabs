@@ -169,7 +169,7 @@ export async function POST(request: Request) {
     `Track: ${track}`,
     `Technical experience: ${technicalExperience}`,
     `Available for 3 online sessions in June: yes`,
-    `Available in Kisumu on June 26: yes`,
+    `Available in Kisumu on July 18: yes`,
     `Consent: yes`,
     "",
     "Project seed",

@@ -455,7 +455,7 @@ export function TechForMediaRegistrationForm() {
               className="mt-1 h-4 w-4 rounded border-[#A1A1AA] text-[#1D4ED8] focus:ring-[#1D4ED8]"
             />
             <span>
-              <span className="block font-medium text-[#0A0A0A]">Available in Kisumu on June 26</span>
+              <span className="block font-medium text-[#0A0A0A]">Available in Kisumu on July 18</span>
             </span>
           </label>
         </div>
