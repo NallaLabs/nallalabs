@@ -55,8 +55,8 @@ const experienceOptions = [
   },
 ] as const;
 
-const minMembers = 2;
-const maxMembers = 5;
+const minMembers = 4;
+const maxMembers = 4;
 
 function memberName(index: number, field: keyof MemberField) {
   return `member_${index}_${field}`;
@@ -65,7 +65,7 @@ function memberName(index: number, field: keyof MemberField) {
 export function TechForMediaRegistrationForm() {
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [teamSize, setTeamSize] = useState(3);
+  const [teamSize, setTeamSize] = useState(4);
   const [registrationId, setRegistrationId] = useState<string | null>(null);
   const [submittedTeamName, setSubmittedTeamName] = useState<string | null>(null);
 
@@ -138,7 +138,7 @@ export function TechForMediaRegistrationForm() {
       setRegistrationId(data.registrationId || null);
       setStatus("success");
       form.reset();
-      setTeamSize(3);
+      setTeamSize(4);
     } catch (error) {
       setStatus("error");
       setErrorMessage(error instanceof Error ? error.message : "Something went wrong.");
