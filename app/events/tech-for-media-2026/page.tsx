@@ -118,7 +118,7 @@ export default function TechForMedia2026Page() {
                 </div>
                 <div className="border border-white/12 bg-white/6 p-4">
                   <p className="label-mono text-[#93C5FD] mb-1">Teams</p>
-                  <p className="font-medium">2 to 5 people per team</p>
+                  <p className="font-medium">4 people per team</p>
                 </div>
                 <div className="border border-white/12 bg-white/6 p-4">
                   <p className="label-mono text-[#93C5FD] mb-1">Prize</p>
