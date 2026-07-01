@@ -443,7 +443,7 @@ export function TechForMediaRegistrationForm() {
             />
             <span>
               <span className="block font-medium text-[#0A0A0A]">
-                Available for 3 online sessions in June
+                Available for 3 online sessions in July
               </span>
             </span>
           </label>

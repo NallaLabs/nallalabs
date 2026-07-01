@@ -168,7 +168,7 @@ export async function POST(request: Request) {
     `Team size: ${teamSize}`,
     `Track: ${track}`,
     `Technical experience: ${technicalExperience}`,
-    `Available for 3 online sessions in June: yes`,
+    `Available for 3 online sessions in July: yes`,
     `Available in Kisumu on July 18: yes`,
     `Consent: yes`,
     "",
