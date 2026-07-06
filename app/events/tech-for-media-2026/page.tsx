@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { TechForMediaRegistrationForm } from "@/components/sections/TechForMediaRegistrationForm";
 
@@ -88,43 +89,55 @@ export default function TechForMedia2026Page() {
         <section className="relative border-b border-[#1F2937] bg-[#08111F] text-[#FAFAFA]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(29,78,216,0.38),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.07),_transparent_28%)]" />
           <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-16 sm:py-20 lg:py-24">
-            <div className="space-y-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center gap-2 border border-white/15 bg-white/6 px-3 py-1 text-xs font-medium tracking-[0.12em] uppercase">
-                  <Sparkles size={14} />
-                  Nalla Labs x Baraza Media Lab
-                </span>
-                <span className="inline-flex items-center gap-2 border border-white/15 bg-white/6 px-3 py-1 text-xs font-medium tracking-[0.12em] uppercase">
-                  2026 open call
-                </span>
+            <div>
+              <div className="space-y-6">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-2 border border-white/15 bg-white/6 px-3 py-1 text-xs font-medium tracking-[0.12em] uppercase">
+                    <Sparkles size={14} />
+                    Nalla Labs x Baraza Media Lab
+                  </span>
+                  <span className="inline-flex items-center gap-2 border border-white/15 bg-white/6 px-3 py-1 text-xs font-medium tracking-[0.12em] uppercase">
+                    2026 open call
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  <h1 className="text-[clamp(3rem,6vw,5.75rem)] leading-[0.95] tracking-[-0.04em] font-semibold max-w-4xl">
+                    Tech for Media Exhibition Programme 2026
+                  </h1>
+                  <div>
+                    <Image
+                      src="/Tech_Challenge_2026.jpeg"
+                      alt="Tech for Media Exhibition Programme 2026 poster"
+                      width={600}
+                      height={750}
+                      className="w-full h-auto"
+                      priority
+                    />
+                  </div>
+                  <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-white/78">
+                    Build a real project with your team, join structured online mentorship, and
+                    showcase the work live in Kisumu. We are looking for groups that can think clearly,
+                    scope honestly, and ship something useful.
+                  </p>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="border border-white/12 bg-white/6 p-4">
+                    <p className="label-mono text-[#93C5FD] mb-1">Format</p>
+                    <p className="font-medium">Online mentorship + live exhibition</p>
+                  </div>
+                  <div className="border border-white/12 bg-white/6 p-4">
+                    <p className="label-mono text-[#93C5FD] mb-1">Teams</p>
+                    <p className="font-medium">4 people per team</p>
+                  </div>
+                  <div className="border border-white/12 bg-white/6 p-4">
+                    <p className="label-mono text-[#93C5FD] mb-1">Prize</p>
+                    <p className="font-medium">Cash prize for the winning project</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-4">
-                <p className="label-mono text-[#93C5FD]">Event poster</p>
-                <h1 className="text-[clamp(3rem,6vw,5.75rem)] leading-[0.95] tracking-[-0.04em] font-semibold max-w-4xl">
-                  Tech for Media Exhibition Programme 2026
-                </h1>
-                <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-white/78">
-                  Build a real project with your team, join structured online mentorship, and
-                  showcase the work live in Kisumu. We are looking for groups that can think clearly,
-                  scope honestly, and ship something useful.
-                </p>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="border border-white/12 bg-white/6 p-4">
-                  <p className="label-mono text-[#93C5FD] mb-1">Format</p>
-                  <p className="font-medium">Online mentorship + live exhibition</p>
-                </div>
-                <div className="border border-white/12 bg-white/6 p-4">
-                  <p className="label-mono text-[#93C5FD] mb-1">Teams</p>
-                  <p className="font-medium">4 people per team</p>
-                </div>
-                <div className="border border-white/12 bg-white/6 p-4">
-                  <p className="label-mono text-[#93C5FD] mb-1">Prize</p>
-                  <p className="font-medium">Cash prize for the winning project</p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
