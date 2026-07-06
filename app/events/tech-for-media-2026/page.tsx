@@ -133,7 +133,7 @@ export default function TechForMedia2026Page() {
                   </div>
                   <div className="border border-white/12 bg-white/6 p-4">
                     <p className="label-mono text-[#93C5FD] mb-1">Prize</p>
-                    <p className="font-medium">Cash prize for the winning project</p>
+                    <p className="font-medium">Funding opportunities</p>
                   </div>
                 </div>
               </div>
