@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Sparkles } from "lucide-react";
+import { TechForMediaRegistrationForm } from "@/components/sections/TechForMediaRegistrationForm";
 
 const title = "Tech for Media Exhibition Programme 2026";
 const description =
@@ -104,16 +104,6 @@ export default function TechForMedia2026Page() {
                   <h1 className="text-[clamp(3rem,6vw,5.75rem)] leading-[0.95] tracking-[-0.04em] font-semibold max-w-4xl">
                     Tech for Media Exhibition Programme 2026
                   </h1>
-                  <div>
-                    <Image
-                      src="/Tech_Challenge_2026.jpeg"
-                      alt="Tech for Media Exhibition Programme 2026 poster"
-                      width={600}
-                      height={750}
-                      className="w-full h-auto"
-                      priority
-                    />
-                  </div>
                   <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-white/78">
                     Build a real project with your team, join structured online mentorship, and
                     showcase the work live in Kisumu. We are looking for groups that can think clearly,
@@ -183,12 +173,16 @@ export default function TechForMedia2026Page() {
                 </div>
               </aside>
 
-              <div className="border border-[#E4E4E7] bg-white p-6 sm:p-8 lg:p-10 flex flex-col items-start justify-center min-h-[240px]">
-                <p className="label-mono text-[#1D4ED8] mb-3">Applications</p>
-                <h2 className="text-h2 text-[#0A0A0A] mb-4">July cohort is closed</h2>
-                <p className="text-[#52525B] leading-relaxed max-w-2xl">
-                  Applications for the July cohort have ended. The September cohort will be open soon — check back here for updates.
-                </p>
+              <div className="border border-[#E4E4E7] bg-white p-6 sm:p-8 lg:p-10">
+                <div className="mb-8">
+                  <p className="label-mono text-[#1D4ED8] mb-3">Registration form</p>
+                  <h2 className="text-h2 text-[#0A0A0A] mb-4">Sign up your team</h2>
+                  <p className="text-[#52525B] leading-relaxed max-w-2xl">
+                    The July cohort is now closed. Submissions received will be considered for the upcoming September cohort.
+                  </p>
+                </div>
+
+                <TechForMediaRegistrationForm />
               </div>
             </div>
           </div>
