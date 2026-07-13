@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Sparkles } from "lucide-react";
-import { TechForMediaRegistrationForm } from "@/components/sections/TechForMediaRegistrationForm";
 
 const title = "Tech for Media Exhibition Programme 2026";
 const description =
@@ -184,17 +183,12 @@ export default function TechForMedia2026Page() {
                 </div>
               </aside>
 
-              <div className="border border-[#E4E4E7] bg-white p-6 sm:p-8 lg:p-10">
-                <div className="mb-8">
-                  <p className="label-mono text-[#1D4ED8] mb-3">Registration form</p>
-                  <h2 className="text-h2 text-[#0A0A0A] mb-4">Sign up your team</h2>
-                  <p className="text-[#52525B] leading-relaxed max-w-2xl">
-                    Use one form per team. We will review submissions, match mentors, and follow up with
-                    the lead contact.
-                  </p>
-                </div>
-
-                <TechForMediaRegistrationForm />
+              <div className="border border-[#E4E4E7] bg-white p-6 sm:p-8 lg:p-10 flex flex-col items-start justify-center min-h-[240px]">
+                <p className="label-mono text-[#1D4ED8] mb-3">Applications</p>
+                <h2 className="text-h2 text-[#0A0A0A] mb-4">July cohort is closed</h2>
+                <p className="text-[#52525B] leading-relaxed max-w-2xl">
+                  Applications for the July cohort have ended. The September cohort will be open soon — check back here for updates.
+                </p>
               </div>
             </div>
           </div>
