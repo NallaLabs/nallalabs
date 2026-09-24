@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#work" },
+  { label: "Academy", href: "https://academy.nallalabs.xyz" },
   { label: "Events", href: "/events/tech-for-media-2026" },
   { label: "Insights", href: "#insights" },
   { label: "About", href: "#about" },
@@ -26,7 +27,7 @@ export function Nav() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    if (href.startsWith("/")) {
+    if (!href.startsWith("#")) {
       window.location.assign(href);
       return;
     }
