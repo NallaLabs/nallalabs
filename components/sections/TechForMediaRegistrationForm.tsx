@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -55,8 +56,28 @@ const experienceOptions = [
   },
 ] as const;
 
+const steps = [
+  { label: "Team basics", title: "Who is applying, and how do we reach the lead contact?" },
+  { label: "Members", title: "Tell us who is on the team and what each person brings." },
+  {
+    label: "Project seed",
+    title:
+      "Keep it light. We want to understand the problem, the audience, and the rough shape of the solution.",
+  },
+  { label: "Track + experience", title: "Which build track fits the idea, and who can build it?" },
+  { label: "Confirm", title: "Confirm the team can show up, then submit." },
+] as const;
+
+const lastStep = steps.length - 1;
+
 const minMembers = 4;
 const maxMembers = 4;
+
+const inputClass =
+  "w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors";
+
+const choiceClass =
+  "border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] has-[:checked]:border-[#1D4ED8] has-[:checked]:bg-[#EFF6FF] transition-colors";
 
 function memberName(index: number, field: keyof MemberField) {
   return `member_${index}_${field}`;
@@ -68,8 +89,53 @@ export function TechForMediaRegistrationForm() {
   const [teamSize, setTeamSize] = useState(4);
   const [registrationId, setRegistrationId] = useState<string | null>(null);
   const [submittedTeamName, setSubmittedTeamName] = useState<string | null>(null);
+  const [step, setStep] = useState(0);
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const headingRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const hasNavigated = useRef(false);
+  // Set when submit sends the person back to an earlier step, so the effect reports the gap
+  // instead of focusing the heading. A ref, not state: clearing it must not re-run the effect.
+  const pendingReport = useRef(false);
 
   const memberCards = Array.from({ length: teamSize }, (_, index) => index);
+
+  // Returns the first invalid control in a step, or null when the step is complete.
+  const firstInvalid = (index: number) => {
+    const container = formRef.current?.querySelector(`[data-step="${index}"]`);
+    if (!container) return null;
+    const controls = container.querySelectorAll<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >("input:not([type=hidden]):not([tabindex='-1']), select, textarea");
+    return Array.from(controls).find((control) => !control.checkValidity()) ?? null;
+  };
+
+  // After a step change: move focus to the new step's heading and bring the form into view.
+  useEffect(() => {
+    if (!hasNavigated.current) return;
+    if (pendingReport.current) {
+      pendingReport.current = false;
+      firstInvalid(step)?.reportValidity();
+    } else {
+      headingRefs.current[step]?.focus({ preventScroll: true });
+    }
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
+
+  const goTo = (index: number) => {
+    hasNavigated.current = true;
+    setErrorMessage(null);
+    setStep(Math.max(0, Math.min(lastStep, index)));
+  };
+
+  const goNext = () => {
+    const invalid = firstInvalid(step);
+    if (invalid) {
+      invalid.reportValidity();
+      return;
+    }
+    goTo(step + 1);
+  };
 
   const handleTeamSizeChange = (value: string) => {
     const parsed = Number(value);
@@ -83,6 +149,26 @@ export function TechForMediaRegistrationForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Before the last step, "Next" (or Enter) validates this step and moves forward.
+    if (step < lastStep) {
+      goNext();
+      return;
+    }
+
+    // Every step must be complete; send the person back to the first gap.
+    const incomplete = steps.findIndex((_, index) => firstInvalid(index) !== null);
+    if (incomplete !== -1) {
+      if (incomplete === step) {
+        firstInvalid(step)?.reportValidity();
+      } else {
+        hasNavigated.current = true;
+        pendingReport.current = true;
+        setStep(incomplete);
+      }
+      return;
+    }
+
     const form = event.currentTarget;
     setStatus("submitting");
     setErrorMessage(null);
@@ -139,6 +225,7 @@ export function TechForMediaRegistrationForm() {
       setStatus("success");
       form.reset();
       setTeamSize(4);
+      setStep(0);
     } catch (error) {
       setStatus("error");
       setErrorMessage(error instanceof Error ? error.message : "Something went wrong.");
@@ -169,8 +256,33 @@ export function TechForMediaRegistrationForm() {
     );
   }
 
+  const stepHeader = (index: number) => (
+    <div>
+      <p className="label-mono text-[#1D4ED8] mb-2">
+        Step {index + 1} of {steps.length} · {steps[index].label}
+      </p>
+      <h3
+        ref={(el) => {
+          headingRefs.current[index] = el;
+        }}
+        tabIndex={-1}
+        className="text-xl font-semibold tracking-tight text-[#0A0A0A] focus:outline-none"
+      >
+        {steps[index].title}
+      </h3>
+    </div>
+  );
+
+  const stepProps = (index: number) => ({
+    "data-step": index,
+    hidden: step !== index,
+    className: "space-y-4",
+    role: "group" as const,
+    "aria-label": `Step ${index + 1}: ${steps[index].label}`,
+  });
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-8 scroll-mt-24">
       <input
         type="text"
         name="website"
@@ -180,53 +292,60 @@ export function TechForMediaRegistrationForm() {
         aria-hidden="true"
       />
 
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">1. Team basics</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Who is applying, and how do we reach the lead contact?
-          </h3>
-        </div>
+      {/* Progress */}
+      <nav aria-label="Registration progress">
+        <ol className="grid grid-cols-5 gap-1.5">
+          {steps.map((item, index) => {
+            const done = index < step;
+            const current = index === step;
+            return (
+              <li key={item.label}>
+                <button
+                  type="button"
+                  onClick={() => done && goTo(index)}
+                  disabled={!done}
+                  aria-current={current ? "step" : undefined}
+                  className="group w-full text-left disabled:cursor-default"
+                >
+                  <span
+                    className={`block h-1 transition-colors ${
+                      done || current ? "bg-[#1D4ED8]" : "bg-[#E4E4E7]"
+                    } ${done ? "group-hover:bg-[#0A0A0A]" : ""}`}
+                  />
+                  <span
+                    className={`mt-2 hidden sm:flex items-center gap-1 font-mono text-[11px] uppercase tracking-wide ${
+                      current ? "text-[#0A0A0A]" : done ? "text-[#1D4ED8]" : "text-[#A1A1AA]"
+                    }`}
+                  >
+                    {done ? <Check size={11} aria-hidden /> : null}
+                    {item.label}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+
+      {/* 1. Team basics */}
+      <div {...stepProps(0)}>
+        {stepHeader(0)}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="space-y-2">
             <span className="label-mono block text-[#52525B]">Team name</span>
-            <input
-              type="text"
-              name="teamName"
-              required
-              placeholder="e.g. Studio Loop"
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-            />
+            <input type="text" name="teamName" required placeholder="e.g. Studio Loop" className={inputClass} />
           </label>
           <label className="space-y-2">
             <span className="label-mono block text-[#52525B]">Lead name</span>
-            <input
-              type="text"
-              name="leadName"
-              required
-              placeholder="Full name"
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-            />
+            <input type="text" name="leadName" required placeholder="Full name" className={inputClass} />
           </label>
           <label className="space-y-2">
             <span className="label-mono block text-[#52525B]">Lead WhatsApp number</span>
-            <input
-              type="tel"
-              name="leadWhatsApp"
-              required
-              placeholder="+254..."
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-            />
+            <input type="tel" name="leadWhatsApp" required placeholder="+254..." className={inputClass} />
           </label>
           <label className="space-y-2">
             <span className="label-mono block text-[#52525B]">Lead email</span>
-            <input
-              type="email"
-              name="leadEmail"
-              required
-              placeholder="lead@example.com"
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-            />
+            <input type="email" name="leadEmail" required placeholder="lead@example.com" className={inputClass} />
           </label>
           <label className="space-y-2 md:col-span-2">
             <span className="label-mono block text-[#52525B]">Number of members</span>
@@ -234,7 +353,7 @@ export function TechForMediaRegistrationForm() {
               name="teamSize"
               value={teamSize}
               onChange={(event) => handleTeamSizeChange(event.target.value)}
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] focus:outline-none focus:border-[#0A0A0A] transition-colors"
+              className={inputClass}
             >
               {Array.from({ length: maxMembers - minMembers + 1 }, (_, index) => index + minMembers).map(
                 (value) => (
@@ -246,15 +365,11 @@ export function TechForMediaRegistrationForm() {
             </select>
           </label>
         </div>
-      </section>
+      </div>
 
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">2. Members</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Tell us who is on the team and what each person brings.
-          </h3>
-        </div>
+      {/* 2. Members */}
+      <div {...stepProps(1)}>
+        {stepHeader(1)}
         <p className="text-sm text-[#52525B]">
           Add each teammate below. We use this to match mentors and identify teams that need extra
           technical support.
@@ -268,31 +383,15 @@ export function TechForMediaRegistrationForm() {
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <label className="space-y-2">
                   <span className="label-mono block text-[#52525B]">Name</span>
-                  <input
-                    type="text"
-                    name={memberName(index, "name")}
-                    required
-                    placeholder="Full name"
-                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-                  />
+                  <input type="text" name={memberName(index, "name")} required placeholder="Full name" className={inputClass} />
                 </label>
                 <label className="space-y-2">
                   <span className="label-mono block text-[#52525B]">Email</span>
-                  <input
-                    type="email"
-                    name={memberName(index, "email")}
-                    placeholder="If available"
-                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-                  />
+                  <input type="email" name={memberName(index, "email")} placeholder="If available" className={inputClass} />
                 </label>
                 <label className="space-y-2">
                   <span className="label-mono block text-[#52525B]">Phone / WhatsApp</span>
-                  <input
-                    type="tel"
-                    name={memberName(index, "phone")}
-                    placeholder="+254..."
-                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
-                  />
+                  <input type="tel" name={memberName(index, "phone")} placeholder="+254..." className={inputClass} />
                 </label>
                 <label className="space-y-2">
                   <span className="label-mono block text-[#52525B]">Profession / background</span>
@@ -301,7 +400,7 @@ export function TechForMediaRegistrationForm() {
                     name={memberName(index, "background")}
                     required
                     placeholder="Journalist, designer, creator, etc."
-                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
+                    className={inputClass}
                   />
                 </label>
                 <label className="space-y-2 md:col-span-2">
@@ -311,79 +410,46 @@ export function TechForMediaRegistrationForm() {
                     name={memberName(index, "skill")}
                     required
                     placeholder="Research, editing, coding, production, etc."
-                    className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors"
+                    className={inputClass}
                   />
                 </label>
               </div>
             </fieldset>
           ))}
         </div>
-      </section>
+      </div>
 
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">3. Project seed</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Keep it light. We want to understand the problem, the audience, and the rough shape of the
-            solution.
-          </h3>
-        </div>
+      {/* 3. Project seed */}
+      <div {...stepProps(2)}>
+        {stepHeader(2)}
         <div className="space-y-4">
-          <label className="space-y-2">
-            <span className="label-mono block text-[#52525B]">
-              What problem do you want to solve?
-            </span>
-            <textarea
-              name="problem"
-              required
-              rows={4}
-              maxLength={500}
-              placeholder="2-3 sentences max."
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors resize-y"
-            />
-          </label>
-          <label className="space-y-2">
-            <span className="label-mono block text-[#52525B]">
-              Who specifically has this problem?
-            </span>
-            <textarea
-              name="audience"
-              required
-              rows={4}
-              maxLength={500}
-              placeholder="2-3 sentences max."
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors resize-y"
-            />
-          </label>
-          <label className="space-y-2">
-            <span className="label-mono block text-[#52525B]">
-              What do you think the solution could look like?
-            </span>
-            <textarea
-              name="solution"
-              required
-              rows={4}
-              maxLength={500}
-              placeholder="2-3 sentences max."
-              className="w-full border border-[#E4E4E7] bg-white px-4 py-3 text-sm text-[#0A0A0A] placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0A0A0A] transition-colors resize-y"
-            />
-          </label>
+          {[
+            { name: "problem", label: "What problem do you want to solve?" },
+            { name: "audience", label: "Who specifically has this problem?" },
+            { name: "solution", label: "What do you think the solution could look like?" },
+          ].map((field) => (
+            <label key={field.name} className="block space-y-2">
+              <span className="label-mono block text-[#52525B]">{field.label}</span>
+              <textarea
+                name={field.name}
+                required
+                rows={4}
+                maxLength={500}
+                placeholder="2-3 sentences max."
+                className={`${inputClass} resize-y`}
+              />
+            </label>
+          ))}
         </div>
-      </section>
+      </div>
 
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">4. Track selection</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Which build track best fits the idea?
-          </h3>
-        </div>
-        <div className="grid gap-3">
+      {/* 4. Track + technical experience */}
+      <div {...stepProps(3)}>
+        {stepHeader(3)}
+        <fieldset className="space-y-3">
+          <legend className="label-mono text-[#52525B] mb-3">Build track</legend>
           {tracks.map((track) => (
-            <label
-              key={track.value}
-              className="border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors"
-            >
+            <label key={track.value} className={choiceClass}>
               <input
                 type="radio"
                 name="track"
@@ -397,22 +463,13 @@ export function TechForMediaRegistrationForm() {
               </span>
             </label>
           ))}
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">5. Technical experience</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Tell us how much technical experience is already in the team.
-          </h3>
-        </div>
-        <div className="grid gap-3">
+        </fieldset>
+        <fieldset className="space-y-3 pt-4">
+          <legend className="label-mono text-[#52525B] mb-3">
+            How much technical experience is already in the team?
+          </legend>
           {experienceOptions.map((option) => (
-            <label
-              key={option.value}
-              className="border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors"
-            >
+            <label key={option.value} className={choiceClass}>
               <input
                 type="radio"
                 name="technicalExperience"
@@ -423,64 +480,51 @@ export function TechForMediaRegistrationForm() {
               <span className="block font-medium text-[#0A0A0A]">{option.label}</span>
             </label>
           ))}
-        </div>
-      </section>
+        </fieldset>
+      </div>
 
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">6. Commitment confirmation</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Confirm the team can show up for the programme schedule.
-          </h3>
-        </div>
-        <div className="space-y-3">
-          <label className="border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors">
+      {/* 5. Commitment + consent */}
+      <div {...stepProps(4)}>
+        {stepHeader(4)}
+        <fieldset className="space-y-3">
+          <legend className="label-mono text-[#52525B] mb-3">Commitment</legend>
+          <label className={choiceClass}>
             <input
               type="checkbox"
               name="availableOnlineSessions"
               required
               className="mt-1 h-4 w-4 rounded border-[#A1A1AA] text-[#1D4ED8] focus:ring-[#1D4ED8]"
             />
-            <span>
-              <span className="block font-medium text-[#0A0A0A]">
-                Available for 3 online sessions in September
-              </span>
+            <span className="block font-medium text-[#0A0A0A]">
+              Available for 3 online sessions in September
             </span>
           </label>
-          <label className="border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors">
+          <label className={choiceClass}>
             <input
               type="checkbox"
               name="availableInKisumu"
               required
               className="mt-1 h-4 w-4 rounded border-[#A1A1AA] text-[#1D4ED8] focus:ring-[#1D4ED8]"
             />
-            <span>
-              <span className="block font-medium text-[#0A0A0A]">Available in Kisumu in September</span>
+            <span className="block font-medium text-[#0A0A0A]">Available in Kisumu in September</span>
+          </label>
+        </fieldset>
+        <fieldset className="space-y-3 pt-4">
+          <legend className="label-mono text-[#52525B] mb-3">Media and documentation consent</legend>
+          <label className={choiceClass}>
+            <input
+              type="checkbox"
+              name="consent"
+              required
+              className="mt-1 h-4 w-4 rounded border-[#A1A1AA] text-[#1D4ED8] focus:ring-[#1D4ED8]"
+            />
+            <span className="text-sm text-[#52525B] leading-relaxed">
+              Nalla Labs and Baraza Media Lab may photograph, document, and publish our project for
+              non-commercial programme and community reporting purposes.
             </span>
           </label>
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <div>
-          <p className="label-mono text-[#1D4ED8] mb-2">7. Consent</p>
-          <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A]">
-            Confirm media and documentation consent.
-          </h3>
-        </div>
-        <label className="border border-[#E4E4E7] bg-white p-4 flex items-start gap-3 cursor-pointer hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors">
-          <input
-            type="checkbox"
-            name="consent"
-            required
-            className="mt-1 h-4 w-4 rounded border-[#A1A1AA] text-[#1D4ED8] focus:ring-[#1D4ED8]"
-          />
-          <span className="text-sm text-[#52525B] leading-relaxed">
-            Nalla Labs and Baraza Media Lab may photograph, document, and publish our project for
-            non-commercial programme and community reporting purposes.
-          </span>
-        </label>
-      </section>
+        </fieldset>
+      </div>
 
       {status === "error" && errorMessage ? (
         <p className="text-sm text-red-600" aria-live="polite">
@@ -488,13 +532,36 @@ export function TechForMediaRegistrationForm() {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="w-full bg-[#0A0A0A] text-[#FAFAFA] text-sm font-medium py-4 hover:bg-[#27272A] transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "submitting" ? "Submitting registration..." : "Submit team registration"}
-      </button>
+      {/* Navigation */}
+      <div className="flex items-center gap-3">
+        {step > 0 ? (
+          <button
+            type="button"
+            onClick={() => goTo(step - 1)}
+            className="inline-flex items-center gap-2 border border-[#E4E4E7] bg-white text-[#0A0A0A] text-sm font-medium px-5 py-4 hover:border-[#0A0A0A] transition-colors duration-150"
+          >
+            <ArrowLeft size={14} aria-hidden />
+            Back
+          </button>
+        ) : null}
+        {step < lastStep ? (
+          <button
+            type="submit"
+            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-[#FAFAFA] text-sm font-medium py-4 hover:bg-[#27272A] transition-colors duration-150"
+          >
+            Next: {steps[step + 1].label}
+            <ArrowRight size={14} aria-hidden />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={status === "submitting"}
+            className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] text-sm font-medium py-4 hover:bg-[#27272A] transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {status === "submitting" ? "Submitting registration..." : "Submit team registration"}
+          </button>
+        )}
+      </div>
     </form>
   );
 }

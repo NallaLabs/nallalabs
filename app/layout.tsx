@@ -4,13 +4,13 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 const description =
-  "Senior advisory and engineering for companies building on blockchain and financial infrastructure. We design, build, and scale secure systems.";
+  "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, and ecosystem programmes.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nallalabs.xyz"),
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   title: {
-    default: "Nalla Labs — Blockchain & Financial Infrastructure",
+    default: "Nalla Labs — Advisory, Engineering & Talent",
     template: "%s — Nalla Labs",
   },
   description,

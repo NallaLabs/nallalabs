@@ -1,14 +1,12 @@
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { TrustStrip } from "@/components/sections/TrustStrip";
+import { Partners } from "@/components/sections/Partners";
 import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/Process";
-import { CaseStudies } from "@/components/sections/CaseStudies";
 import { About } from "@/components/sections/About";
 import { Insights } from "@/components/sections/Insights";
 import { Industries } from "@/components/sections/Industries";
-import { Capabilities } from "@/components/sections/Capabilities";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Contact } from "@/components/sections/Contact";
 
@@ -21,7 +19,7 @@ const jsonLd = {
       url: "https://nallalabs.xyz",
       logo: "https://nallalabs.xyz/favicon.svg",
       description:
-        "Senior advisory and engineering for companies building on blockchain and financial infrastructure.",
+        "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, and ecosystem programmes.",
       email: "hello@nallalabs.xyz",
       contactPoint: [
         {
@@ -32,9 +30,10 @@ const jsonLd = {
           availableLanguage: ["en"],
         },
       ],
-      founder: [
-        { "@type": "Person", name: "Allan Robinson" },
-        { "@type": "Person", name: "Fred Gitonga" },
+      employee: [
+        { "@type": "Person", name: "Allan Robinson", jobTitle: "VP AI Engineering" },
+        { "@type": "Person", name: "Fred Gitonga", jobTitle: "VP Payments + Blockchain" },
+        { "@type": "Person", name: "Ann Maina", jobTitle: "VP Product" },
       ],
     },
     {
@@ -57,14 +56,12 @@ export default function Home() {
       <Nav />
       <main className="relative">
         <Hero />
-        <TrustStrip />
+        <Partners />
         <Services />
         <Process />
-        <CaseStudies />
         <About />
         <Insights />
         <Industries />
-        <Capabilities />
         <FinalCTA />
         <Contact />
       </main>

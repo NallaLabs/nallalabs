@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Calendar } from "lucide-react";
+import { Mail } from "lucide-react";
 import { FadeUp } from "@/components/motion/FadeUp";
 
 const projectTypes = [
@@ -76,15 +76,6 @@ export function Contact() {
                   <Mail size={14} />
                 </span>
                 hello@nallalabs.xyz
-              </a>
-              <a
-                href="#"
-                className="flex items-center gap-3 text-sm text-[#52525B] hover:text-[#0A0A0A] transition-colors group"
-              >
-                <span className="w-8 h-8 border border-[#E4E4E7] flex items-center justify-center group-hover:border-[#0A0A0A] transition-colors">
-                  <Calendar size={14} />
-                </span>
-                Book a 30-min call on Calendly
               </a>
             </div>
           </FadeUp>

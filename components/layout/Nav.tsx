@@ -8,7 +8,6 @@ import { BullMark } from "@/components/ui/BullMark";
 const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
-  { label: "Work", href: "#work" },
   { label: "Academy", href: "https://academy.nallalabs.xyz" },
   { label: "Events", href: "/events/tech-for-media-2026" },
   { label: "Insights", href: "#insights" },
