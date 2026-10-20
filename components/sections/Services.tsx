@@ -1,26 +1,33 @@
+import { ArrowRight } from "lucide-react";
 import { StaggerContainer, StaggerItem, FadeUp } from "@/components/motion/FadeUp";
 
 const services = [
   {
-    label: "Advisory",
-    title: "Strategy & Architecture",
+    label: "Nalla Studio",
+    title: "Advisory & Engineering",
     description:
-      "We help you make the right decisions before writing a single line of code. From blockchain adoption strategy and architecture design to tokenomics and regulatory guidance.",
-    tags: ["Strategy", "Architecture", "Tokenomics", "Product Planning"],
+      "We plan, design and build the systems that move money, water and data. That means payments and blockchain infrastructure, product and brand design, GIS and analytics, and AI that's tested before it ships.",
+    tags: ["Financial infrastructure", "Product & design", "Data & GIS", "AI integration"],
+    cta: "Start a project",
+    href: "#contact",
   },
   {
-    label: "Engineering",
-    title: "Design & Build",
+    label: "Nalla Academy",
+    title: "Zero to Hero Engineering",
     description:
-      "Full-stack blockchain engineering. Smart contract development, DeFi protocol design, payment infrastructure, and production-grade dApps and wallets.",
-    tags: ["Smart Contracts", "DeFi Protocols", "Payment Systems", "dApps"],
+      "A 26-week course that takes complete beginners to job-ready software engineers. It covers Go, Linux, databases and security, in plain English with Kenyan examples. Our best graduates join the Studio.",
+    tags: ["26 weeks", "Go", "Linux", "Security"],
+    cta: "See the curriculum",
+    href: "https://academy.nallalabs.xyz",
   },
   {
-    label: "Scale + Security",
-    title: "Optimize & Secure",
+    label: "Nalla Programmes",
+    title: "Ecosystem & Events",
     description:
-      "Security audits, infrastructure optimization, and ongoing advisory for systems already in production. We find what others miss.",
-    tags: ["Audits", "Optimization", "Integrations"],
+      "Hackathons, exhibitions and partnerships that bring technology to the people it's meant to serve. Tech for Media 2026 brings journalists, creatives and artists together to build for a media industry reshaped by AI.",
+    tags: ["Tech for Media", "Hackathons", "Partnerships"],
+    cta: "Register for Tech for Media",
+    href: "/events/tech-for-media-2026",
   },
 ];
 
@@ -32,13 +39,13 @@ export function Services() {
           {/* Left column */}
           <FadeUp>
             <div className="lg:sticky lg:top-32 self-start">
-              <p className="label-mono mb-6">What we do</p>
+              <p className="label-mono mb-6">How we&apos;re built</p>
               <h2 className="text-h2 text-[#0A0A0A] mb-6">
-                Three layers of expertise, one committed partner.
+                One lab. Three ways in.
               </h2>
               <p className="text-[#52525B] leading-relaxed">
-                We operate across strategy, engineering, and scale. Most clients start with advisory
-                and stay for the build.
+                Most firms sell hours. We also train the people and grow the community around the
+                work, so what we build keeps working after we leave.
               </p>
             </div>
           </FadeUp>
@@ -47,7 +54,10 @@ export function Services() {
           <StaggerContainer className="space-y-4">
             {services.map((service) => (
               <StaggerItem key={service.label}>
-                <div className="border border-[#E4E4E7] p-8 group hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors duration-150 cursor-default">
+                <a
+                  href={service.href}
+                  className="block border border-[#E4E4E7] p-8 group hover:border-[#1D4ED8] hover:bg-[#EFF6FF] transition-colors duration-150"
+                >
                   <p className="label-mono text-[#1D4ED8] mb-3">{service.label}</p>
                   <h3 className="text-xl font-semibold tracking-tight text-[#0A0A0A] mb-3">
                     {service.title}
@@ -65,7 +75,11 @@ export function Services() {
                       </span>
                     ))}
                   </div>
-                </div>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm text-[#0A0A0A] group-hover:text-[#1D4ED8] transition-colors duration-150">
+                    {service.cta}
+                    <ArrowRight size={14} />
+                  </span>
+                </a>
               </StaggerItem>
             ))}
           </StaggerContainer>

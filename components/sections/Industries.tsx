@@ -3,24 +3,24 @@ import { StaggerContainer, StaggerItem, FadeUp } from "@/components/motion/FadeU
 const industries = [
   {
     label: "Fintech",
-    title: "Financial Services",
+    title: "Financial Infrastructure",
     description:
-      "Payment rails, settlement systems, and regulatory-compliant infrastructure for banks, neobanks, and financial platforms.",
-    examples: ["Payment settlement", "Digital wallets", "Compliance automation"],
+      "The systems that move money: payment rails, settlement, digital wallets and blockchain infrastructure, built to meet regulators' requirements from day one.",
+    examples: ["Payments and settlement", "Digital wallets and mobile money", "Compliance automation"],
   },
   {
-    label: "Startups",
-    title: "Early Stage",
+    label: "Utilities",
+    title: "Water and Public Services",
     description:
-      "Architecture decisions that don't become technical debt. We help founders build the right foundation from the beginning.",
-    examples: ["MVP architecture", "Token design", "Scalability planning"],
+      "Tools that help utilities see their networks and serve customers: GIS mapping, metering and billing data, and field operations that work where connectivity doesn't.",
+    examples: ["GIS and network mapping", "Metering and billing", "Field operations"],
   },
   {
-    label: "Enterprise",
-    title: "Established Companies",
+    label: "Data & AI",
+    title: "Data and Applied AI",
     description:
-      "Blockchain adoption that integrates with existing systems. Clear ROI, manageable risk, and infrastructure that lasts.",
-    examples: ["Legacy integration", "Supply chain", "Internal tooling"],
+      "Analytics and AI features that institutions can trust: assistants grounded in your own data, tested with evaluations before they ship and monitored for cost and quality after.",
+    examples: ["Analytics and dashboards", "AI assistants and automation", "Evaluation and guardrails"],
   },
 ];
 

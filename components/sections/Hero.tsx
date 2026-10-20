@@ -25,12 +25,12 @@ export function Hero() {
         >
           {/* Label */}
           <motion.p variants={itemVariants} className="label-mono mb-8">
-            Blockchain + Financial Infrastructure
+            Advisory · Engineering · Talent — Built in Kenya
           </motion.p>
 
           {/* Headline */}
           <motion.h1 variants={itemVariants} className="text-display text-[#0A0A0A] mb-6">
-            We design and build systems financial infrastructure runs on.
+            We design, build and staff the systems African institutions run on.
           </motion.h1>
 
           {/* Subheadline */}
@@ -38,8 +38,9 @@ export function Hero() {
             variants={itemVariants}
             className="text-lg text-[#52525B] leading-relaxed max-w-2xl mb-10"
           >
-            Senior advisory and engineering for companies that need blockchain
-            infrastructure done right the first time.
+            Senior engineering and design for financial infrastructure, utilities,
+            data and AI. It&apos;s backed by an academy that trains the engineers who
+            keep those systems running.
           </motion.p>
 
           {/* CTAs */}
@@ -52,10 +53,10 @@ export function Hero() {
               <ArrowRight size={14} />
             </a>
             <a
-              href="#work"
+              href="#services"
               className="inline-flex items-center gap-2 border border-[#E4E4E7] text-[#0A0A0A] text-sm px-6 py-3 hover:border-[#0A0A0A] transition-colors duration-150"
             >
-              View our work
+              Our services
             </a>
           </motion.div>
         </motion.div>
