@@ -19,7 +19,9 @@ const jsonLd = {
       url: "https://nallalabs.xyz",
       logo: "https://nallalabs.xyz/favicon.svg",
       description:
-        "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, and ecosystem programmes.",
+        "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, ecosystem programmes and open research.",
+      address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+      knowsAbout: ["Software engineering", "Payments", "GIS", "Data engineering", "Artificial intelligence", "Urban mobility research"],
       email: "hello@nallalabs.xyz",
       contactPoint: [
         {

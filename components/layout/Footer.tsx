@@ -1,14 +1,16 @@
+import Link from "next/link";
 import { Mail } from "lucide-react";
 import { BullMark } from "@/components/ui/BullMark";
 
 const footerLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
   { label: "Academy", href: "https://academy.nallalabs.xyz" },
   { label: "Events", href: "/events/tech-for-media-2026" },
-  { label: "Insights", href: "#insights" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Research", href: "/research" },
+  { label: "Insights", href: "/#insights" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Footer() {
@@ -23,7 +25,7 @@ export function Footer() {
               <p className="text-[#FAFAFA] font-semibold text-base">Nalla Labs</p>
             </div>
             <p className="text-[#71717A] text-sm leading-relaxed max-w-xs">
-              Advisory and engineering for companies building on blockchain and financial infrastructure.
+              We design, build and staff the systems African institutions run on: advisory, engineering, talent and open research.
             </p>
           </div>
 
@@ -33,12 +35,12 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-[#71717A] hover:text-[#FAFAFA] transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -55,12 +57,12 @@ export function Footer() {
                 <Mail size={14} />
                 hello@nallalabs.xyz
               </a>
-              <a
-                href="#about"
+              <Link
+                href="/#about"
                 className="flex items-center gap-2 text-sm text-[#71717A] hover:text-[#FAFAFA] transition-colors"
               >
                 Leadership
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -5,6 +5,9 @@ const academyHost = [{ type: "host" as const, value: "academy\\..+" }];
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["academy.localhost"],
+  experimental: {
+    agentUpgrade: "security",
+  },
   async redirects() {
     return [
       {

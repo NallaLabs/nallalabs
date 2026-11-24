@@ -52,10 +52,10 @@ export default function OpenGraphImage() {
               letterSpacing: "-0.04em",
             }}
           >
-            Blockchain & financial infrastructure advisory.
+            We design, build and staff the systems African institutions run on.
           </div>
           <div style={{ fontSize: 28, lineHeight: 1.3, color: "#E2E8F0" }}>
-            Senior engineering for systems that need to work in production.
+            Advisory, engineering, talent and open research. Built in Kenya.
           </div>
         </div>
       </div>

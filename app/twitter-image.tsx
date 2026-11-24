@@ -32,7 +32,7 @@ export default function TwitterImage() {
           </div>
         </div>
         <div style={{ maxWidth: 900, fontSize: 60, fontWeight: 700, lineHeight: 1.02 }}>
-          Blockchain advisory and engineering for financial systems.
+          We design, build and staff the systems African institutions run on.
         </div>
       </div>
     ),
