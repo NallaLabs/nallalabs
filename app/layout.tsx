@@ -4,7 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 const description =
-  "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, and ecosystem programmes.";
+  "Nalla Labs designs, builds and staffs the digital systems African institutions run on: advisory and engineering, an engineering academy, ecosystem programmes and open research.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nallalabs.xyz"),
@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     template: "%s — Nalla Labs",
   },
   description,
+  keywords: [
+    "Nalla Labs",
+    "software engineering Kenya",
+    "Nairobi tech company",
+    "GIS and data engineering Africa",
+    "AI engineering Kenya",
+    "Nairobi traffic research",
+  ],
   alternates: {
     canonical: "/",
   },
