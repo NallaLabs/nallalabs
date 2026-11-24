@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Menu } from "lucide-react";
 import { BullMark } from "@/components/ui/BullMark";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
   { label: "Academy", href: "https://academy.nallalabs.xyz" },
   { label: "Events", href: "/events/tech-for-media-2026" },
-  { label: "Insights", href: "#insights" },
-  { label: "About", href: "#about" },
+  { label: "Research", href: "/research" },
+  { label: "Insights", href: "/#insights" },
+  { label: "About", href: "/#about" },
 ];
 
 export function Nav() {
@@ -24,15 +26,15 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  // Links are real <a href>s so search engines can follow them. On the home page,
+  // section links scroll smoothly instead of navigating.
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
     setMobileOpen(false);
-    if (!href.startsWith("#")) {
-      window.location.assign(href);
-      return;
-    }
-
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (!href.startsWith("/#") || window.location.pathname !== "/") return;
+    const el = document.querySelector(href.slice(1));
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -49,8 +51,8 @@ export function Nav() {
       >
         <nav className="max-w-7xl mx-auto px-8 lg:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
+          <Link
+            href="/"
             className="flex items-center gap-2.5 hover:opacity-75 transition-opacity"
             aria-label="Nalla Labs home"
           >
@@ -58,34 +60,32 @@ export function Nav() {
             <span className="text-[#0A0A0A] font-semibold text-sm tracking-tight leading-none">
               Nalla Labs
             </span>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className="text-sm text-[#52525B] hover:text-[#0A0A0A] transition-colors duration-100 relative group cursor-pointer"
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-sm text-[#52525B] hover:text-[#0A0A0A] transition-colors duration-100 relative group"
               >
                 {link.label}
                 <span className="absolute -bottom-0.5 left-0 w-full h-px bg-[#1D4ED8] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-              </button>
+              </Link>
             ))}
           </div>
 
           {/* CTA */}
           <div className="flex items-center gap-4">
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className="hidden md:inline-flex items-center gap-1 text-sm border border-[#0A0A0A] px-4 py-2 hover:bg-[#0A0A0A] hover:text-[#FAFAFA] transition-colors duration-150"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("#contact");
-              }}
+              onClick={(e) => handleNavClick(e, "/#contact")}
             >
               Book a Call
-            </a>
+            </Link>
             {/* Mobile hamburger */}
             <button
               className="md:hidden p-1 text-[#0A0A0A]"
@@ -120,20 +120,22 @@ export function Nav() {
             </button>
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link) => (
-                <button
+                <Link
                   key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-2xl font-semibold text-[#FAFAFA] hover:text-[#A1A1AA] transition-colors cursor-pointer"
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-2xl font-semibold text-[#FAFAFA] hover:text-[#A1A1AA] transition-colors"
                 >
                   {link.label}
-                </button>
+                </Link>
               ))}
-              <button
-                onClick={() => handleNavClick("#contact")}
-                className="mt-4 text-lg border border-[#FAFAFA] text-[#FAFAFA] px-6 py-3 hover:bg-[#FAFAFA] hover:text-[#0A0A0A] transition-colors cursor-pointer"
+              <Link
+                href="/#contact"
+                onClick={(e) => handleNavClick(e, "/#contact")}
+                className="mt-4 text-lg border border-[#FAFAFA] text-[#FAFAFA] px-6 py-3 hover:bg-[#FAFAFA] hover:text-[#0A0A0A] transition-colors"
               >
                 Book a Call
-              </button>
+              </Link>
             </nav>
           </motion.div>
         )}
