@@ -1,5 +1,5 @@
-import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { sendToInbox } from "@/lib/email";
 
 type ContactPayload = {
   name?: string;
@@ -39,18 +39,6 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_TO_EMAIL || "hello@nallalabs.xyz";
-
-  if (!apiKey) {
-    return NextResponse.json(
-      {
-        error: "Email delivery is not configured. Set RESEND_API_KEY and CONTACT_TO_EMAIL.",
-      },
-      { status: 500 },
-    );
-  }
-
   const subject = `New inquiry from ${name}${company ? ` at ${company}` : ""}`;
   const text = [
     `Name: ${name}`,
@@ -61,44 +49,10 @@ export async function POST(request: Request) {
     message,
   ].join("\n");
 
-  const resend = new Resend(apiKey);
-  const sendPromise = resend.emails.send({
-    from: "Nalla Labs <hello@nallalabs.xyz>",
-    to: toEmail,
-    replyTo: email,
-    subject,
-    text,
-  });
+  const sent = await sendToInbox({ replyTo: email, subject, text });
 
-  const timeoutPromise = new Promise<{
-    kind: "timeout";
-  }>((resolve) => {
-    setTimeout(() => resolve({ kind: "timeout" }), 15000);
-  });
-
-  const outcome = await Promise.race([
-    sendPromise.then(
-      (result) =>
-        ({
-          kind: "result",
-          result,
-        }) as const,
-    ),
-    timeoutPromise,
-  ]);
-
-  if (outcome.kind === "timeout") {
-    return NextResponse.json(
-      { error: "Email delivery timed out while contacting Resend. Please try again." },
-      { status: 502 },
-    );
-  }
-
-  if (outcome.result.error) {
-    return NextResponse.json(
-      { error: `Email delivery failed: ${outcome.result.error.message}` },
-      { status: 502 },
-    );
+  if (!sent.ok) {
+    return NextResponse.json({ error: sent.error }, { status: sent.status });
   }
 
   return NextResponse.json({ message: "Inquiry sent." });
