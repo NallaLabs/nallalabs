@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Download, ExternalLink, FileText } from "lucide-react";
+import { PdfPages } from "@/components/research/PdfPages";
 import { downloadUrl, formatDate, type Paper, type PaperVersion, type ResearchDoc } from "@/lib/research";
 
 type Doc = {
@@ -15,7 +16,17 @@ type Doc = {
   unit: string;
 };
 
+// Desktop browsers have a built-in PDF viewer. Phones and tablets either don't
+// (Chrome on Android) or only show the first page (iOS Safari), so they get pdf.js.
+function subscribe() {
+  return () => {};
+}
+function canEmbedPdf() {
+  return navigator.pdfViewerEnabled !== false && !window.matchMedia("(pointer: coarse)").matches;
+}
+
 export function PaperViewer({ paper }: { paper: Paper }) {
+  const nativePdf = useSyncExternalStore(subscribe, canEmbedPdf, () => null);
   // Each hosted version contributes its paper and, if it has one, its slide deck.
   const docs: Doc[] = paper.versions
     .filter((v) => v.file)
@@ -51,6 +62,23 @@ export function PaperViewer({ paper }: { paper: Paper }) {
   const file = doc.file;
   const downloadName = file.split("/").pop();
   const tracked = downloadUrl(paper, active.version, doc.doc);
+
+  const fallback = (
+    <div className="flex h-[75vh] min-h-[480px] flex-col items-center justify-center gap-4 p-8 text-center bg-[#F4F4F5]">
+      <FileText size={32} className="text-[#A1A1AA]" />
+      <p className="text-sm text-[#52525B] max-w-sm">
+        Your browser can&apos;t show the PDF here. Open it in a new tab or download it to read.
+      </p>
+      <a
+        href={tracked}
+        download={downloadName}
+        className="inline-flex items-center gap-2 bg-[#0A0A0A] text-[#FAFAFA] text-sm px-5 py-2.5 hover:bg-[#27272A] transition-colors"
+      >
+        <Download size={14} />
+        Download {doc.label}
+      </a>
+    </div>
+  );
 
   return (
     <div className="border border-[#E4E4E7] bg-white">
@@ -100,30 +128,21 @@ export function PaperViewer({ paper }: { paper: Paper }) {
         </div>
       </div>
 
-      {/* Embedded PDF. Mobile browsers often can't render PDFs inline, so the
-          fallback content gives them the same open/download actions. */}
-      <object
-        key={file}
-        data={`${file}#navpanes=0&view=FitH`}
-        type="application/pdf"
-        className="block w-full h-[75vh] min-h-[480px] bg-[#F4F4F5]"
-        aria-label={`${paper.title} ${doc.label} PDF`}
-      >
-        <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-          <FileText size={32} className="text-[#A1A1AA]" />
-          <p className="text-sm text-[#52525B] max-w-sm">
-            Your browser can&apos;t show the PDF here. Open it in a new tab or download it to read.
-          </p>
-          <a
-            href={tracked}
-            download={downloadName}
-            className="inline-flex items-center gap-2 bg-[#0A0A0A] text-[#FAFAFA] text-sm px-5 py-2.5 hover:bg-[#27272A] transition-colors"
-          >
-            <Download size={14} />
-            Download {doc.label}
-          </a>
-        </div>
-      </object>
+      {nativePdf === null ? (
+        <div className="h-[75vh] min-h-[480px] bg-[#F4F4F5]" />
+      ) : nativePdf ? (
+        <object
+          key={file}
+          data={`${file}#navpanes=0&view=FitH`}
+          type="application/pdf"
+          className="block w-full h-[75vh] min-h-[480px] bg-[#F4F4F5]"
+          aria-label={`${paper.title} ${doc.label} PDF`}
+        >
+          {fallback}
+        </object>
+      ) : (
+        <PdfPages key={file} file={file} label={`${paper.title} ${doc.label}`} fallback={fallback} />
+      )}
     </div>
   );
 }
